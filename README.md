@@ -4,7 +4,7 @@
 
 * Developer
   * 서윤주
-  * 송수민(twalla)
+  * 송수민(Twalla)
   * 양진영
 
 # Usage
