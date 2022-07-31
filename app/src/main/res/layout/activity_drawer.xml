@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="240dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:orientation="vertical"
+    android:id="@+id/drawer"
+    android:background="#F2BDEFDA">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#60E8AD"
+        android:fontFamily="@font/font3"
+        android:text="menu"
+        android:textColor="#FFFFFF"
+        android:textSize="90dp"
+        android:gravity="center_horizontal"/>
+
+    <Button
+        android:id="@+id/btn_move1"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:textColor="#000000"
+        android:backgroundTint="#0076DDEA"
+        android:textSize="30dp"
+        android:fontFamily="@font/font3"
+        android:text="for meal"/>
+
+    <Button
+        android:id="@+id/btn_move2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:backgroundTint="#0076DDEA"
+        android:fontFamily="@font/font3"
+        android:text="for exercise"
+        android:textColor="#000000"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/btn_move3"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:textColor="#000000"
+        android:backgroundTint="#0076DDEA"
+        android:textSize="30dp"
+        android:fontFamily="@font/font3"
+        android:text="for study"/>
+
+    <Button
+        android:id="@+id/btn_close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:backgroundTint="#0076DDEA"
+        android:textSize="30dp"
+        android:fontFamily="@font/font3"
+        android:layout_marginTop="200dp"
+        android:text="close"/>
+
+</LinearLayout>
