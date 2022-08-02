@@ -3,9 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/github/community-app/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1445" />
+        <entry key="..\:/github/community-app/app/src/main/res/drawable/box.xml" value="0.1405" />
+        <entry key="..\:/github/community-app/app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_24.xml" value="0.1445" />
+        <entry key="..\:/github/community-app/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.1445" />
+        <entry key="..\:/github/community-app/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1445" />
+        <entry key="..\:/github/community-app/app/src/main/res/drawable/rectangle.xml" value="0.1405" />
+        <entry key="..\:/github/community-app/app/src/main/res/layout/activity_drawer.xml" value="0.22916666666666666" />
+        <entry key="..\:/github/community-app/app/src/main/res/layout/activity_main.xml" value="0.24947916666666667" />
+        <entry key="..\:/github/community-app/app/src/main/res/layout/login.xml" value="0.24947916666666667" />
         <entry key="app/src/main/res/drawable/box.xml" value="0.201" />
         <entry key="app/src/main/res/drawable/rectangle.xml" value="0.201" />
+        <entry key="app/src/main/res/layout/activity_drawer.xml" value="0.2821557971014493" />
+        <entry key="app/src/main/res/layout/activity_login1.xml" value="0.2821557971014493" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25625" />
+        <entry key="app/src/main/res/layout/activity_study.xml" value="0.2821557971014493" />
         <entry key="app/src/main/res/layout/login.xml" value="0.2552083333333333" />
       </map>
     </option>
