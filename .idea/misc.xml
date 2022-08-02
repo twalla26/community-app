@@ -18,8 +18,10 @@
         <entry key="app/src/main/res/layout/activity_drawer.xml" value="0.2821557971014493" />
         <entry key="app/src/main/res/layout/activity_login1.xml" value="0.2821557971014493" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25625" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/activity_study.xml" value="0.2821557971014493" />
         <entry key="app/src/main/res/layout/login.xml" value="0.2552083333333333" />
+        <entry key="app/src/main/res/xml/network_security_config.xml" value="0.3171875" />
       </map>
     </option>
   </component>

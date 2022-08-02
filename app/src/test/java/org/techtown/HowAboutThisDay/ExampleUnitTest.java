@@ -1,4 +1,4 @@
-package org.techtown.login_function;
+package org.techtown.HowAboutThisDay;
 
 import org.junit.Test;
 
