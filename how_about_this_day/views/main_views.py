@@ -8,6 +8,4 @@ bp = Blueprint('main', __name__, url_prefix='/')
 
 @bp.route('/')
 def index():
-    test777 = test.query.filter_by().all()
-    print(test777)
     return jsonify({"hello":"world"})
