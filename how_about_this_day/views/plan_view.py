@@ -65,7 +65,3 @@ def modify(plan_id):
     return jsonify({"access" : "question/questionForm", "form" : form})
 
 
-
-
-
-
