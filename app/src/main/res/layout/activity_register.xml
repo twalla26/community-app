@@ -55,7 +55,6 @@
                     android:id="@+id/validateButton1"
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:background="#60E8AD"
                     android:text="중복체크"
                     android:textColor="#FFFFFF" />
 

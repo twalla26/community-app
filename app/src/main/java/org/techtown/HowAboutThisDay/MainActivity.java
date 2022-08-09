@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,10 +26,20 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.techtown.HowAboutThisDay.Study_activity;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
     ImageButton imageButton_left;
     ImageButton imageButton_right;
 
+    private static final String URL_Login_session = "http://59.25.242.66:5000/auth/checkSession/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,8 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity1.class);
-                startActivity(intent); //액티비티 이동
+                send_request_Server_login_session();
             }
         }));
 
@@ -301,21 +313,21 @@ public class MainActivity extends AppCompatActivity {
                 subtext = itemView.findViewById(R.id.item_subtext);
                 img = itemView.findViewById(R.id.item_image);
 
-                itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View view) {
-
-                        int position = getAbsoluteAdapterPosition();
-                        int seq = (int) maintext.getTag();
-
-                        if (position != RecyclerView.NO_POSITION) {
-                            dbHelper.deleteMemo(seq);
-                            removeItem(position);
-                            notifyDataSetChanged();
-                        }
-                        return false;
-                    }
-                });
+//                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//                    @Override
+//                    public boolean onLongClick(View view) {
+//
+//                        int position = getAbsoluteAdapterPosition();
+//                        int seq = (int) maintext.getTag();
+//
+//                        if (position != RecyclerView.NO_POSITION) {
+//                            dbHelper.deleteMemo(seq);
+//                            removeItem(position);
+//                            notifyDataSetChanged();
+//                        }
+//                        return false;
+//                    }
+//                });
 
 
                 drawerLayout.setDrawerListener(listener);
@@ -348,9 +360,61 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             };
-
-
         }
+    }
+
+    public void send_request_Server_login_session() {
+
+        class sendData extends AsyncTask<Void, Void, String> {
+            @Override
+            protected void onPreExecute(){
+                super.onPreExecute();
+            }
+            @Override
+            protected void onPostExecute(String s){
+                super.onPostExecute(s);
+            }
+            @Override
+            protected void onProgressUpdate(Void... values){
+                super.onProgressUpdate(values);
+            }
+            @Override
+            protected void onCancelled(String s){
+                super.onCancelled(s);
+            }
+            @Override
+            protected void onCancelled(){
+                super.onCancelled();
+            }
+            @Override
+            protected String doInBackground(Void... voids){
+                try {
+                    OkHttpClient client = new OkHttpClient();
+
+                    Request request = new Request.Builder()
+                            .url(URL_Login_session)
+                            .build();
+                    Response responses = null;
+                    responses = client.newCall(request).execute();
+                    String response = responses.body().string();
+                    System.out.println(response);
+
+                    if (response.contains("login")){
+                        Intent intent = new Intent(MainActivity.this, User_activity.class);
+                        startActivity(intent);
+                    } else if (response.contains("logout")) {
+                        Intent intent = new Intent(MainActivity.this, LoginActivity1.class);
+                        startActivity(intent);
+                    }
+
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }
+        sendData sendData = new sendData();
+        sendData.execute();
     }
 }
 
