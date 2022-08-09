@@ -19,14 +19,25 @@
         android:gravity="center_horizontal"/>
 
     <Button
-        android:id="@+id/btn_move1"
+        android:id="@+id/btn_user"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:textColor="#000000"
         android:backgroundTint="#0076DDEA"
         android:textSize="30dp"
         android:fontFamily="@font/font3"
-        android:text="for meal"/>
+        android:text="user"/>
+
+    <Button
+        android:id="@+id/btn_move1"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:textColor="#000000"
+        android:backgroundTint="#0076DDEA"
+        android:textSize="30dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/font3"
+        android:text="for study"/>
 
     <Button
         android:id="@+id/btn_move2"
@@ -34,7 +45,7 @@
         android:layout_height="80dp"
         android:backgroundTint="#0076DDEA"
         android:fontFamily="@font/font3"
-        android:text="for exercise"
+        android:text="for meal"
         android:textColor="#000000"
         android:textSize="30dp" />
 
@@ -46,7 +57,7 @@
         android:backgroundTint="#0076DDEA"
         android:textSize="30dp"
         android:fontFamily="@font/font3"
-        android:text="for study"/>
+        android:text="for exercise"/>
 
     <Button
         android:id="@+id/btn_close"
@@ -56,7 +67,7 @@
         android:backgroundTint="#0076DDEA"
         android:textSize="30dp"
         android:fontFamily="@font/font3"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="160dp"
         android:text="close"/>
 
 </LinearLayout>

@@ -10,139 +10,187 @@
     tools:context=".MainActivity">
 
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="400dp"
-        tools:context=".MainActivity"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#60E8AD"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/imageButton1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:adjustViewBounds="true"
-                android:background="#00000000"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_baseline_menu_24" />
-
-            <ImageButton
-                android:id="@+id/image_title"
-                android:layout_width="200dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="55dp"
-                android:layout_marginTop="5dp"
-                android:adjustViewBounds="true"
-                android:background="#00000000"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/title_icon2" />
-
-            <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="55dp"
-                android:adjustViewBounds="true"
-                android:background="#00000000"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_baseline_person_24" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
+        <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp">
+            android:layout_height="400dp"
+            tools:context=".MainActivity"
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/imageButton3"
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#60E8AD"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButton1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:adjustViewBounds="true"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_baseline_menu_24" />
+
+                <ImageButton
+                    android:id="@+id/image_title"
+                    android:layout_width="200dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="55dp"
+                    android:layout_marginTop="5dp"
+                    android:adjustViewBounds="true"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/title_icon2" />
+
+                <ImageButton
+                    android:id="@+id/imageButton2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="55dp"
+                    android:adjustViewBounds="true"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_baseline_person_24" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="#00000000"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/study_main" />
+                android:layout_marginTop="70dp">
 
-        </LinearLayout>
+                <ImageButton
+                    android:id="@+id/imageButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/study_main" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp">
+            </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/imageButton4"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="#00000000"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/meal_main" />
-        </LinearLayout>
+                android:layout_marginTop="70dp">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp">
+                <ImageButton
+                    android:id="@+id/imageButton4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/meal_main" />
+            </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/imageButton5"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="#00000000"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/exercise_main" />
-        </LinearLayout>
+                android:layout_marginTop="70dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-
-            <ImageButton
-                android:id="@+id/imageButton_left"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginVertical="170dp"
-                android:adjustViewBounds="true"
-                android:background="#00000000"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_baseline_keyboard_arrow_left_24" />
-
-            <ImageButton
-                android:id="@+id/imageButton_right"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="170dp"
-                android:layout_marginStart="310dp"
-                android:adjustViewBounds="true"
-                android:background="#00000000"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+                <ImageButton
+                    android:id="@+id/imageButton5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/exercise_main" />
 
 
-        </LinearLayout>
+                <CalendarView
+                    android:id="@+id/cal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
 
-    </FrameLayout>
+                <TextView
+                    android:id="@+id/tv_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="날짜를 선택해주세요." />
 
 
+                <ScrollView
+                    android:background="#60E8AD"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:fillViewport="true">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                </ScrollView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
 
+                <ImageButton
+                    android:id="@+id/imageButton_left"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginVertical="170dp"
+                    android:adjustViewBounds="true"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_baseline_keyboard_arrow_left_24" />
+
+                <ImageButton
+                    android:id="@+id/imageButton_right"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="170dp"
+                    android:layout_marginStart="310dp"
+                    android:adjustViewBounds="true"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+            </LinearLayout>
 
 
+        </FrameLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btnAdd"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="330dp"
+            android:layout_marginTop="600dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_baseline_add_circle_24" />
+
+
+    </LinearLayout>
 
 
 
     <include layout="@layout/activity_drawer"/>
 
 
-</androidx.drawerlayout.widget.DrawerLayout>
+</androidx.drawerlayout.widget.DrawerLayout >

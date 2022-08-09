@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".User_activity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="사용자 정보"
+        android:fontFamily="@font/font3"
+        android:layout_gravity="center"
+        android:textSize="50dp"/>
+
+    <FrameLayout
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/table_outside"
+        android:orientation="vertical">
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/table_outside"
+            android:stretchColumns="1"
+            >
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_span="1"
+                    android:background="@drawable/table_inside"
+                    android:text="사용자"
+                    android:fontFamily="@font/font3"
+                    android:gravity="center"
+                    android:textSize="35dp" />
+
+                <TextView
+                    android:id="@+id/login_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="35dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/font3"
+                    android:background="@drawable/table_inside"
+                    android:layout_span="1"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="35dp"
+                    android:text="이메일"
+                    android:fontFamily="@font/font3"
+                    android:gravity="center"
+                    android:background="@drawable/table_inside"
+                    android:layout_span="1"/>
+
+                <TextView
+                    android:id="@+id/login_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="35dp"
+                    android:fontFamily="@font/font3"
+                    android:gravity="center"
+                    android:background="@drawable/table_inside"
+                    android:layout_span="1"/>
+            </TableRow>
+
+
+
+
+        </TableLayout>
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_logout"
+        android:layout_margin="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_button2"
+        android:layout_marginTop="16dp"
+        android:text="로그아웃"
+        android:fontFamily="@font/font3"
+        android:textSize="35dp"
+        android:layout_gravity="center"/>
+
+</LinearLayout>
+

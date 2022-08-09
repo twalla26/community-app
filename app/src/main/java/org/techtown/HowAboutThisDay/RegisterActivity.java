@@ -1,28 +1,26 @@
 package org.techtown.HowAboutThisDay;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.techtown.HowAboutThisDay.MainActivity;
 
 import java.io.IOException;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.Request;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText UserEmail, Username, UserPW, PWcheck;
@@ -36,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         UserEmail = findViewById(R.id.et_email);
-        Username = findViewById(R.id.et_username);
+        Username = findViewById(R.id.et_username1);
         UserPW = findViewById(R.id.et_password1);
         PWcheck = findViewById(R.id.et_password2);
 

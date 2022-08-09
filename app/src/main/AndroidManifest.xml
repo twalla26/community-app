@@ -4,17 +4,24 @@
     package="org.techtown.HowAboutThisDay">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/main_icon"
         android:label="이날어때"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@drawable/main_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Login_function"
-        android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="31">
+        <activity
+            android:name=".AddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".User_activity"
+            android:exported="false" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
@@ -34,6 +41,5 @@
             </intent-filter>
         </activity>
     </application>
-
 
 </manifest>

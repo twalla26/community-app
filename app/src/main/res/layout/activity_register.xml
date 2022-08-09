@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".RegisterActivity">
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
@@ -24,28 +24,45 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
+
+
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TableRow>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="330dp"
+            <LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_span="1"
+                app:boxBackgroundColor="#00FFFFFF">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_username1"
+                    android:layout_width="240dp"
                     android:layout_height="wrap_content"
-                    android:layout_span="1"
-                    app:boxBackgroundColor="#00FFFFFF">
+                    android:hint="USER NAME"
+                    android:inputType="textPersonName" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_username"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="USER NAME"
-                        android:inputType="textPersonName" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </TableRow>
+            </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/validateButton1"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:background="#60E8AD"
+                    android:text="중복체크"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
 
 
-            <TableRow>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -60,10 +77,10 @@
                         android:hint="PASSWORD"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
-            </TableRow>
 
 
-            <TableRow>
+
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -79,10 +96,10 @@
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-            </TableRow>
 
 
-            <TableRow>
+
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -96,7 +113,7 @@
                         android:hint="EMAIL"
                         android:inputType="textPersonName" />
                 </com.google.android.material.textfield.TextInputLayout>
-            </TableRow>
+
 
 
         </TableLayout>
