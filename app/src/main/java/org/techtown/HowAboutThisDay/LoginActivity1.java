@@ -26,15 +26,15 @@ import okhttp3.Response;
 public class LoginActivity1 extends AppCompatActivity {
     private EditText Username, UserPW;
     private Button login_progress;
-    private static final String URL = "http://59.18.221.32:5000/auth/login/";
+    private static final String URL_Login = "http://59.25.242.66:5000/auth/login/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login1);
 
-        Username = findViewById(R.id.et_username1);
-        UserPW = findViewById(R.id.et_password1);
+        Username = findViewById(R.id.et_id);
+        UserPW = findViewById(R.id.et_pass);
 
         login_progress = findViewById(R.id.btn_login);
         login_progress.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +46,6 @@ public class LoginActivity1 extends AppCompatActivity {
 
         AppCompatButton btn_register = (AppCompatButton) findViewById(R.id.btn_register);
         btn_register.setOnClickListener((new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity1.this, RegisterActivity.class);
@@ -85,7 +84,7 @@ public class LoginActivity1 extends AppCompatActivity {
                     OkHttpClient client = new OkHttpClient();
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("username", username);
-                    jsonObject.put("password1", password);
+                    jsonObject.put("password", password);
 
                     RequestBody requestBody = RequestBody.create(
                             MediaType.parse("application/json; charset=uft-8"),
@@ -93,23 +92,37 @@ public class LoginActivity1 extends AppCompatActivity {
                     );
                     Request request = new Request.Builder()
                             .post(requestBody)
-                            .url(URL)
+                            .url(URL_Login)
                             .build();
                     Response responses = null;
                     responses = client.newCall(request).execute();
                     String response = responses.body().string();
                     System.out.println(response);
 
-                    if (response.contains("success")){
+                     if (response.contains("password")){
                         LoginActivity1.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(getApplicationContext(), String.format("%s님 환영합니다.", username), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "비밀번호가 다릅니다.", Toast.LENGTH_SHORT).show();
                             }
                         });
-                        Intent intent = new Intent(LoginActivity1.this, MainActivity.class);
-                        startActivity(intent);
-                    } else {
+                    } else if (response.contains("user")) {
+                        LoginActivity1.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "존재하지 않는 아이디 입니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.contains("success")){
+                         LoginActivity1.this.runOnUiThread(new Runnable() {
+                             @Override
+                             public void run() {
+                                 Toast.makeText(getApplicationContext(), String.format("%s님 환영합니다.", username), Toast.LENGTH_SHORT).show();
+                             }
+                         });
+                         Intent intent = new Intent(LoginActivity1.this, MainActivity.class);
+                         startActivity(intent);
+                     } else {
                         LoginActivity1.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
