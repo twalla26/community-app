@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -275,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
             itemViewHolder.subtext.setText(memo.getSubtext());
 
             if (memo.getIsdone() == 0) {
-                itemViewHolder.img.setBackgroundColor(Color.LTGRAY);
+                itemViewHolder.img.setBackgroundColor(Color.WHITE);
             } else {
                 itemViewHolder.img.setBackgroundColor(Color.GREEN);
             }
@@ -292,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
         class ItemViewHolder extends RecyclerView.ViewHolder {
             private TextView maintext;
             private TextView subtext;
-            private ImageView img;
+            private CheckBox img;
 
             public ItemViewHolder(@NonNull View itemView) {
                 super(itemView);

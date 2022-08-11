@@ -17,6 +17,15 @@
         android:theme="@style/Theme.Login_function"
         tools:targetApi="31">
         <activity
+            android:name=".ViewStudy"
+            android:exported="false" />
+        <activity
+            android:name=".PlusStudy"
+            android:exported="false" />
+        <activity
+            android:name=".EditStudy"
+            android:exported="false" />
+        <activity
             android:name=".AddActivity"
             android:exported="false" />
         <activity
