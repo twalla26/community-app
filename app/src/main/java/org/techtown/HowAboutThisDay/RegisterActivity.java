@@ -41,7 +41,6 @@ public class RegisterActivity extends AppCompatActivity {
         UserPW = findViewById(R.id.et_password1);
         PWcheck = findViewById(R.id.et_password2);
 
-
         idcheck = findViewById(R.id.validateButton1);
         idcheck.setOnClickListener(new View.OnClickListener() {
             @Override
