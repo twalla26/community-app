@@ -17,6 +17,30 @@
         android:theme="@style/Theme.Login_function"
         tools:targetApi="31">
         <activity
+            android:name=".ViewExercise"
+            android:exported="false" />
+        <activity
+            android:name=".PlusExercise"
+            android:exported="false" />
+        <activity
+            android:name=".EditExercise"
+            android:exported="false" />
+        <activity
+            android:name=".ViewMeal"
+            android:exported="false" />
+        <activity
+            android:name=".EditMeal"
+            android:exported="false" />
+        <activity
+            android:name=".PlusMeal"
+            android:exported="false" />
+        <activity
+            android:name=".ExerciseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MealActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewStudy"
             android:exported="false" />
         <activity

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MealActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1">
+
+                <TableRow>
+
+                    <SearchView
+                        android:layout_width="360dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/table_outside2"/>
+
+                    <ImageButton
+                        android:id="@+id/imageButton1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:adjustViewBounds="true"
+                        android:background="#60E8AD"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/ic_baseline_menu_24" />
+
+
+                </TableRow>
+            </TableLayout>
+
+            <FrameLayout
+                android:layout_marginTop="60dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_outside"
+                android:orientation="vertical">
+
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/table_outside"
+                    android:stretchColumns="1"
+                    >
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_span="1"
+                            android:background="@drawable/table_inside"
+                            android:fontFamily="@font/font3"
+                            android:gravity="center"
+                            android:text="제목"
+                            android:textSize="35dp" />
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/table_inside"
+                            android:fontFamily="@font/font3"
+                            android:gravity="center"
+                            android:text="글쓴이"
+                            android:textSize="35dp" />
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="35dp"
+                            android:text="조회"
+                            android:gravity="center"
+                            android:fontFamily="@font/font3"
+                            android:background="@drawable/table_inside"
+                            android:layout_span="1"/>
+                    </TableRow>
+
+                    <TableRow>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/blank1"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_span="1"
+                            android:background="@drawable/table_inside2"
+                            android:fontFamily="@font/font3"
+                            android:gravity="center"
+                            android:textSize="20dp"
+                            />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/blank2"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_span="1"
+                            android:background="@drawable/table_inside2"
+                            android:fontFamily="@font/font3"
+                            android:gravity="center"
+                            android:textSize="20dp"
+                            />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/blank3"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_span="1"
+                            android:background="@drawable/table_inside2"
+                            android:fontFamily="@font/font3"
+                            android:gravity="center"
+                            android:textSize="20dp"
+                            />
+
+
+                    </TableRow>
+
+                </TableLayout>
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/btnAdd"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="330dp"
+                        android:layout_marginTop="560dp"
+                        android:adjustViewBounds="true"
+                        android:background="#00000000"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/ic_baseline_add_circle_24" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>
