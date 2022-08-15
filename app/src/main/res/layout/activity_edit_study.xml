@@ -7,6 +7,15 @@
     android:orientation="vertical"
     tools:context=".EditStudy">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +44,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="480dp"
         android:orientation="horizontal"
         android:padding="25dp"
         android:layout_marginBottom="50dp">
@@ -87,5 +96,9 @@
             android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
+
+    </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

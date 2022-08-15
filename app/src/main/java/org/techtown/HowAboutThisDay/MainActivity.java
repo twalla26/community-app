@@ -75,9 +75,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity1.class);
+                startActivity(intent); //액티비티 이동
                 send_request_Server_login_session();
             }
         }));
+
+
 
         ImageButton button1 = (ImageButton)findViewById(R.id.imageButton_right);
         imageButton3 = (ImageButton) findViewById(R.id.imageButton3);
@@ -169,6 +173,26 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
 
+        ImageButton imageButton4 = (ImageButton) findViewById(R.id.imageButton4);
+        imageButton4.setOnClickListener((new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MealActivity.class);
+                startActivity(intent); //액티비티 이동
+            }
+        }));
+
+        ImageButton imageButton5 = (ImageButton) findViewById(R.id.imageButton5);
+        imageButton5.setOnClickListener((new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ExerciseActivity.class);
+                startActivity(intent); //액티비티 이동
+            }
+        }));
+
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerView = (View) findViewById(R.id.drawer);
@@ -206,6 +230,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Study_activity.class);
+                startActivity(intent); //액티비티 이동
+            }
+        }));
+
+        Button btn_move2 = (Button) findViewById(R.id.btn_move2);
+        btn_move2.setOnClickListener((new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MealActivity.class);
+                startActivity(intent); //액티비티 이동
+            }
+        }));
+
+        Button btn_move3 = (Button) findViewById(R.id.btn_move3);
+        btn_move3.setOnClickListener((new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ExerciseActivity.class);
                 startActivity(intent); //액티비티 이동
             }
         }));
@@ -314,24 +358,24 @@ public class MainActivity extends AppCompatActivity {
                 subtext = itemView.findViewById(R.id.item_subtext);
                 img = itemView.findViewById(R.id.item_image);
 
-//                itemView.setOnLongClickListener(new View.OnLongClickListener() {
-//                    @Override
-//                    public boolean onLongClick(View view) {
-//
-//                        int position = getAbsoluteAdapterPosition();
-//                        int seq = (int) maintext.getTag();
-//
-//                        if (position != RecyclerView.NO_POSITION) {
-//                            dbHelper.deleteMemo(seq);
-//                            removeItem(position);
-//                            notifyDataSetChanged();
-//                        }
-//                        return false;
-//                    }
-//                });
+                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+
+                        int position = getAbsoluteAdapterPosition();
+                        int seq = (int) maintext.getTag();
+
+                        if (position != RecyclerView.NO_POSITION) {
+                            dbHelper.deleteMemo(seq);
+                            removeItem(position);
+                            notifyDataSetChanged();
+                        }
+                        return false;
+                    }
+                });
 
 
-                drawerLayout.setDrawerListener(listener);
+              drawerLayout.setDrawerListener(listener);
                 drawerView.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View view, MotionEvent motionEvent) {

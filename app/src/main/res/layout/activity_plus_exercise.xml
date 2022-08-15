@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PlusExercise">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="25dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="1"
+                    android:background="@drawable/table_inside"
+                    android:fontFamily="@font/font3"
+                    android:gravity="center"
+                    android:text="제목"
+                    android:textSize="35dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="1"
+                    android:background="@drawable/table_inside"
+                    android:fontFamily="@font/font3"
+                    android:gravity="center"
+                    android:textSize="35dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="480dp"
+                android:orientation="horizontal"
+                android:padding="25dp"
+                android:layout_marginBottom="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_span="1"
+                    android:background="@drawable/table_inside"
+                    android:fontFamily="@font/font3"
+                    android:gravity="center"
+                    android:text="내용"
+                    android:textSize="35dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_span="1"
+                    android:background="@drawable/table_inside"
+                    android:fontFamily="@font/font3"
+                    android:gravity="center"
+                    android:textSize="35dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_plusexercise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_button2"
+                    android:fontFamily="@font/font3"
+                    android:text="등록"
+                    android:textSize="35dp"
+                    android:layout_marginLeft="310dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
