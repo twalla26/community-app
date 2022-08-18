@@ -1,22 +1,43 @@
 package org.techtown.HowAboutThisDay;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+
+import android.content.Context;
 import android.content.Intent;
+
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.techtown.HowAboutThisDay.RegisterActivity;
 
 import java.io.IOException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.util.ArrayList;
+import java.util.List;
 
+
+import javax.servlet.http.HttpSession;
+
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -26,7 +47,8 @@ import okhttp3.Response;
 public class LoginActivity1 extends AppCompatActivity {
     private EditText Username, UserPW;
     private Button login_progress;
-    private static final String URL_Login = "http://59.25.242.66:5000/auth/login/";
+    private static final String URL_Login = "http://39.124.122.32:5000/auth/login/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +79,8 @@ public class LoginActivity1 extends AppCompatActivity {
         final String username = Username.getText().toString();
         final String password = UserPW.getText().toString();
 
-        class sendData extends AsyncTask<Void, Void, String> {
+
+        class sendData extends AsyncTask<Void, Void, String>{
             @Override
             protected void onPreExecute(){
                 super.onPreExecute();
@@ -81,7 +104,13 @@ public class LoginActivity1 extends AppCompatActivity {
             @Override
             protected String doInBackground(Void... voids){
                 try {
-                    OkHttpClient client = new OkHttpClient();
+                    PersistentCookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(LoginActivity1.this));
+                    List<Cookie> cookieList = cookieJar.loadForRequest(HttpUrl.parse(URL_Login));
+
+                    OkHttpClient client = new OkHttpClient.Builder()
+                            .cookieJar(cookieJar)
+                            .build();
+
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("username", username);
                     jsonObject.put("password", password);
@@ -96,8 +125,32 @@ public class LoginActivity1 extends AppCompatActivity {
                             .build();
                     Response responses = null;
                     responses = client.newCall(request).execute();
+                    String res_cookie = responses.headers().get("Set-Cookie");
+                    System.out.println(res_cookie);
+
                     String response = responses.body().string();
-                    System.out.println(response);
+
+                    String id = res_cookie.split("=")[0];
+                    String value = res_cookie.split("=")[1].toString().split(";")[0];
+                    String session = id + "=" + value;
+
+                    System.out.println(id);
+                    System.out.println(value);
+
+                    Cookie cookie = new Cookie.Builder()
+                            .name(id)
+                            .value(value)
+                            .domain("39.124.122.32")
+                            .path("/auth/checkSession/")
+                                    .build();
+                    cookieList.add(cookie);
+                    System.out.println(cookieList);
+
+
+                    setString(id, session);
+                    String check = getString(id);
+                    System.out.println(check);
+
 
                      if (response.contains("password")){
                         LoginActivity1.this.runOnUiThread(new Runnable() {
@@ -121,6 +174,7 @@ public class LoginActivity1 extends AppCompatActivity {
                              }
                          });
                          Intent intent = new Intent(LoginActivity1.this, MainActivity.class);
+
                          startActivity(intent);
                      } else {
                         LoginActivity1.this.runOnUiThread(new Runnable() {
@@ -137,6 +191,18 @@ public class LoginActivity1 extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 return null;
+            }
+
+            private void setString(String key, String value){
+                SharedPreferences prefs = LoginActivity1.this.getSharedPreferences("session", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString(key, value);
+                editor.commit();
+            }
+            public String getString(String key) {
+                SharedPreferences prefs = LoginActivity1.this.getSharedPreferences("session", Context.MODE_PRIVATE);
+                String value = prefs.getString(key, " ");
+                return value;
             }
         }
         sendData sendData = new sendData();

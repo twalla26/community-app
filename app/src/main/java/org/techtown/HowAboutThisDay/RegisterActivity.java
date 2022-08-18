@@ -23,13 +23,14 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+
 public class RegisterActivity extends AppCompatActivity {
     private EditText UserEmail, Username, UserPW, PWcheck;
     private Button submit, idcheck;
     private AlertDialog dialog;
     private boolean valiate = false;
-    private static final String URL_Signup = "http://59.25.242.66:5000/auth/signup/";
-    private static final String URL_IDcheck = "http://59.25.242.66:5000/auth/signup/checkDup";
+    private static final String URL_Signup = "http://39.124.122.32:5000/auth/signup/";
+    private static final String URL_IDcheck = "http://39.124.122.32:5000/auth/signup/checkDup";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

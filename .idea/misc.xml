@@ -25,21 +25,28 @@
         <entry key="..\:/github/community-app/app/src/main/res/layout/activity_study.xml" value="0.264" />
         <entry key="..\:/github/community-app/app/src/main/res/layout/activity_view_exercise.xml" value="0.24947916666666667" />
         <entry key="..\:/github/community-app/app/src/main/res/layout/activity_view_meal.xml" value="0.24947916666666667" />
-        <entry key="..\:/github/community-app/app/src/main/res/layout/activity_view_study.xml" value="0.1" />
+        <entry key="..\:/github/community-app/app/src/main/res/layout/activity_view_study.xml" value="0.12132725430597771" />
         <entry key="..\:/github/community-app/app/src/main/res/layout/list_item.xml" value="0.264" />
         <entry key="..\:/github/community-app/app/src/main/res/layout/login.xml" value="0.24947916666666667" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1705" />
         <entry key="app/src/main/res/drawable/box.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_24.xml" value="0.1705" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1705" />
         <entry key="app/src/main/res/drawable/rectangle.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/round_button2.xml" value="0.1705" />
+        <entry key="app/src/main/res/drawable/table_inside.xml" value="0.1705" />
+        <entry key="app/src/main/res/drawable/table_inside2.xml" value="0.1705" />
         <entry key="app/src/main/res/layout/activity_add.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/activity_drawer.xml" value="0.2821557971014493" />
         <entry key="app/src/main/res/layout/activity_edit_study.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/activity_login1.xml" value="0.2821557971014493" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25625" />
-        <entry key="app/src/main/res/layout/activity_plus_study.xml" value="0.3182291666666667" />
+        <entry key="app/src/main/res/layout/activity_plus_exercise.xml" value="0.15885416666666666" />
+        <entry key="app/src/main/res/layout/activity_plus_study.xml" value="0.21200408935546877" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/activity_study.xml" value="0.2662689208984375" />
         <entry key="app/src/main/res/layout/activity_user2.xml" value="0.3182291666666667" />
-        <entry key="app/src/main/res/layout/activity_view_study.xml" value="0.26280619303385416" />
+        <entry key="app/src/main/res/layout/activity_view_study.xml" value="0.22183098591549297" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/login.xml" value="0.31249440511067705" />
         <entry key="app/src/main/res/xml/network_security_config.xml" value="0.3171875" />

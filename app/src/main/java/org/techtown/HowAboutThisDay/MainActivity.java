@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -29,13 +31,24 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+
 import java.io.IOException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.techtown.HowAboutThisDay.Study_activity;
 
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -63,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
     ImageButton imageButton_left;
     ImageButton imageButton_right;
 
-    private static final String URL_Login_session = "http://59.25.242.66:5000/auth/checkSession/";
+    private static final String URL_Login_session = "http://39.124.122.32:5000/auth/checkSession/";
+    private static final String URL_Login = "http://39.124.122.32:5000/auth/login/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -434,15 +449,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected String doInBackground(Void... voids){
                 try {
-                    OkHttpClient client = new OkHttpClient();
+                    CookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(MainActivity.this));
+                    String sessionid = getString("session");
+                    List<Cookie> cookieList = cookieJar.loadForRequest(HttpUrl.parse(URL_Login));
+                    System.out.println(sessionid);
+                    System.out.println(cookieList);
+
+                    OkHttpClient client = new OkHttpClient.Builder()
+                            .cookieJar(cookieJar)
+                            .build();
 
                     Request request = new Request.Builder()
+                            .addHeader("Cookie", sessionid)
                             .url(URL_Login_session)
                             .build();
                     Response responses = null;
                     responses = client.newCall(request).execute();
+
                     String response = responses.body().string();
                     System.out.println(response);
+
+
+
 
                     if (response.contains("login")){
                         Intent intent = new Intent(MainActivity.this, User_activity.class);
@@ -457,10 +485,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return null;
             }
+            public String getString(String key) {
+                SharedPreferences prefs = MainActivity.this.getSharedPreferences("session", Context.MODE_PRIVATE);
+                String value = prefs.getString(key, " ");
+                return value;
+            }
         }
         sendData sendData = new sendData();
         sendData.execute();
     }
 }
-
-

@@ -3,7 +3,9 @@ package org.techtown.HowAboutThisDay;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,11 +15,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -26,7 +36,7 @@ import okhttp3.Response;
 
 public class PlusStudy extends AppCompatActivity {
 
-    private static final String URL_Plus_Study = "http://59.25.242.66:5000/";
+    private static final String URL_Plus_Study = "http://39.124.122.32:5000/study_plan/create/";
     private EditText Title, Content;
     private Button Register;
 
@@ -74,9 +84,18 @@ public class PlusStudy extends AppCompatActivity {
             @Override
             protected String doInBackground(Void... voids){
                 try {
-                    OkHttpClient client = new OkHttpClient();
+                    CookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(PlusStudy.this));
+                    String sessionid = getString("session");
+                    List<Cookie> cookieList = cookieJar.loadForRequest(HttpUrl.parse(URL_Plus_Study));
+                    System.out.println(sessionid);
+                    System.out.println(cookieList);
+
+                    OkHttpClient client = new OkHttpClient.Builder()
+                            .cookieJar(cookieJar)
+                            .build();
+
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("title", title);
+                    jsonObject.put("subject", title);
                     jsonObject.put("content", content);
 
                     RequestBody requestBody = RequestBody.create(
@@ -84,6 +103,7 @@ public class PlusStudy extends AppCompatActivity {
                             jsonObject.toString()
                     );
                     Request request = new Request.Builder()
+                            .addHeader("Cookie", sessionid)
                             .post(requestBody)
                             .url(URL_Plus_Study)
                             .build();
@@ -116,6 +136,11 @@ public class PlusStudy extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 return null;
+            }
+            public String getString(String key) {
+                SharedPreferences prefs = PlusStudy.this.getSharedPreferences("session", Context.MODE_PRIVATE);
+                String value = prefs.getString(key, " ");
+                return value;
             }
         }
         sendData sendData = new sendData();
