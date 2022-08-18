@@ -8,7 +8,6 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     
 
-
 class StudyPlan(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     subject = db.Column(db.String(200), nullable=False)
@@ -36,7 +35,7 @@ class ExercisePlan(db.Model):
     create_date = db.Column(db.DateTime(), nullable=False)
     modify_date = db.Column(db.DateTime(), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
-    user = db.relationship('User', backref=db.backref('exercise_plan_set')) 
+    user = db.relationship('User', backref=db.backref('exercise_plan_set'))
 
 
 class ExercisePlanComment(db.Model):
@@ -67,9 +66,4 @@ class MealPlanComment(db.Model):
     create_date = db.Column(db.DateTime(), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     user = db.relationship('User', backref=db.backref('meal_plan_comment_set'))
-
-
-
-class test(db.Model):
-    test1 = db.Column(db.Text(100), primary_key=True)
 

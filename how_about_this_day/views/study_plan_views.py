@@ -1,14 +1,10 @@
 import json
-from flask import Blueprint, jsonify, url_for, render_template, flash, request, session, g
-from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.utils import redirect
-
+from flask import Blueprint, jsonify, request, g
 from datetime import datetime
 
 from how_about_this_day import db
-from how_about_this_day.forms import PlanCreateForm, UserCreateForm, UserLoginForm, CommentForm
-from how_about_this_day.models import StudyPlan, StudyPlanComment, User
-import functools
+from how_about_this_day.forms import PlanCreateForm, CommentForm
+from how_about_this_day.models import StudyPlan, StudyPlanComment
 
 
 bp = Blueprint('study_plan', __name__, url_prefix='/study_plan')
@@ -47,8 +43,7 @@ def detail(plan_id):
         for comment in comments: # 페이지 내의 댓글 들 중 작성자가 작성한 댓글 탐색
             comment = { "user" : comment.user.username, 
                         "content" : comment.content,
-                        "create_date" : comment.create_date,
-                        "modify_date" : comment.modify_date}
+                        "create_date" : comment.create_date|datetime}
             comment = json.dumps(comment, ensure_ascii=False)
             comment = json.loads(comment)
             commentList.append(comment)
@@ -62,7 +57,9 @@ def detail(plan_id):
             return jsonify({"id" : study_plan.id, 
                             "subject" : study_plan.subject, 
                             "content" : study_plan.content,
-                            "plan_writer" : "True", 
+                            "create_date" : study_plan.create_date|datetime,
+                            "modify_date" : study_plan.modify_date|datetime,
+                            "plan_writer" : "True",
                             "commentList" : commentList,
                             "myComments" : myComments}) # GET요청: 클라에 약속 데이터와 답변 데이터 전송
 
@@ -70,6 +67,8 @@ def detail(plan_id):
             return jsonify({"id" : study_plan.id, 
                             "subject" : study_plan.subject, 
                             "content" : study_plan.content,
+                            "create_date" : study_plan.create_date|datetime,
+                            "modify_date" : study_plan.modify_date|datetime,
                             "plan_writer" : "False", 
                             "commentList" : commentList,
                             "myComments" : myComments}) # GET요청: 클라에 약속 데이터와 답변 데이터 전송
@@ -100,26 +99,18 @@ def create_plan(): # 약속 작성 함수 -> 로그인이 필요한 기능
 @bp.route('/modify/<int:plan_id>/', methods=('GET', 'POST')) # 약속 수정
 def modify(plan_id): # 약속 수정 함수 -> 로그인이 필요한 기능 + 글 작성자가 본인이어야 함
     plan = StudyPlan.query.get_or_404(plan_id)
-
     if request.method == 'POST': # POST 요청 (수정 권한 있음)
         form = PlanCreateForm() # 사용자가 수정한 내용을 form 변수에 저장
-        print(form.subject)
-        print(form.content)
         form.populate_obj(plan) # form 변수에 들어 있는 데이터(화면에서 입력한 데이터)를 plan 객체에 업데이트 하는 역할.
         plan.modify_date = datetime.now() # 수정일시 저장
         ip = request.remote_addr # 사용자 ip 저장
-        date = datetime.now()
+        date = datetime.now() 
         db.session.commit() # db에 저장
         print(date)
         print("[로그]", "계획을 수정했습니다. (IP:",str(ip)+")") # 로그 기록
         return jsonify({"modify" : "success"}) # 클라가 약속 내용을 수정한 후 수정 완료된 글에 다시 들어갈 수 있도록 plan_id를 전달.
-
     else: # GET 요청
         return jsonify({"subject" : plan.subject, "content" : plan.content}) # 클라가 글을 수정할 수 있도록 기존에 썼던 글
-
-    """    form = PlanCreateForm(obj=plan) # obj 매개변수에 데이터베이스에서 조회한 데이터를 전달하여 폼을 생성
-    return jsonify({"subject" : form.subject, "content" : form.content}) # 클라가 글을 수정할 수 있도록 기존에 썼던 글"""
-
 
 @bp.route('/delete/<int:plan_id>/') # 약속 삭제
 def delete(plan_id): # 약속 삭제 함수
@@ -131,4 +122,3 @@ def delete(plan_id): # 약속 삭제 함수
     print(date)
     print("[로그]", "계획을 삭제했습니다. (IP:",str(ip)+")") # 로그 기록
     return jsonify({"delete" : "success"}) # 클라에 삭제 완료 전송
-

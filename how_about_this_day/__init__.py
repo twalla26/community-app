@@ -1,8 +1,6 @@
-from email.utils import format_datetime
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from pip import main
 from sqlalchemy import MetaData
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
@@ -10,9 +8,6 @@ from flask_admin.contrib.sqla import ModelView
 
 import config
 
-
-
-# 한글 입력 오류 해결
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -46,11 +41,12 @@ def create_app():
     from . import models
 
     # 블루프린트
-    from .views import main_views, auth_views, study_plan_views, userInfo_views
-    app.register_blueprint(main_views.bp)
+    from .views import auth_views, study_plan_views, userInfo_views, meal_plan_views, exercise_plan_views
     app.register_blueprint(auth_views.bp)
     app.register_blueprint(study_plan_views.bp)
     app.register_blueprint(userInfo_views.bp)
+    app.register_blueprint(meal_plan_views.bp)
+    app.register_blueprint(exercise_plan_views.bp)
 
     # 필터
     from .filter import format_datetime
@@ -59,14 +55,17 @@ def create_app():
     # 관리자 페이지 설정
     # bootswatch theme 설정. bootswatch: free theme for bootstrap
     app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
-    from .models import StudyPlan, User, StudyPlanComment, test
+    from .models import User, StudyPlan, StudyPlanComment, MealPlan, MealPlanComment, ExercisePlan, ExercisePlanComment
     
     if app.debug: #admin page는 사용자들에게 보여지는 페이지가 아니기 때문에 debug mode일 때만 적용되도록 설정
         admin = Admin(app, name='flask admin', template_mode='bootstrap3')
         admin.add_view(ModelView(StudyPlan, db.session))
         admin.add_view(ModelView(User, db.session))
         admin.add_view(ModelView(StudyPlanComment, db.session))
-        admin.add_view(ModelView(test, db.session)) 
+        admin.add_view(ModelView(MealPlan, db.session))
+        admin.add_view(ModelView(ExercisePlan, db.session))
+        admin.add_view(ModelView(ExercisePlanComment, db.session))
+        admin.add_view(ModelView(MealPlanComment, db.session))
 
     return app
 

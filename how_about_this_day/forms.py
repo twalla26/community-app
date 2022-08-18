@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, PasswordField, EmailField
-from wtforms.validators import DataRequired, Length, EqualTo, Email
+# from wtforms.validators import DataRequired, Length, EqualTo, Email
 
-
+"""
 class PlanCreateForm(FlaskForm):
     subject = StringField('제목', validators = [DataRequired('제목은 필수 입력 항목입니다.')])
     content = TextAreaField('내용', validators = [DataRequired('내용은 필수 입력 항목입니다.')])
@@ -22,4 +22,26 @@ class CommentForm(FlaskForm):
 
 class CheckDupForm(FlaskForm):
     username = StringField('사용자이름', validators = [DataRequired(), Length(min = 3, max = 25)])
+
+"""
+ 
+class PlanCreateForm(FlaskForm):
+    subject = StringField()
+    content = TextAreaField()
+
+class UserCreateForm(FlaskForm):
+    username = StringField()
+    password1 = PasswordField()
+    password2 = PasswordField()
+    email = EmailField()
+
+class UserLoginForm(FlaskForm):
+    username = StringField()
+    password = PasswordField()
+
+class CommentForm(FlaskForm):
+    content = TextAreaField()
+
+class CheckDupForm(FlaskForm):
+    username = StringField()
  

@@ -1,14 +1,7 @@
+from flask import Blueprint, jsonify, session
 import json
-from flask import Blueprint, jsonify, url_for, render_template, flash, request, session, g
-from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.utils import redirect
 
-from datetime import datetime
-
-from how_about_this_day import db
-from how_about_this_day.forms import PlanCreateForm, UserCreateForm, UserLoginForm
-from how_about_this_day.models import StudyPlan, User
-import functools
+from how_about_this_day.models import User
 
 
 bp = Blueprint('userInfo', __name__, url_prefix='/userInfo')
@@ -21,12 +14,48 @@ def userInfo():
     email = user.email
     return jsonify({"username" : username, "email" : email})
 
-    
-""""
-@bp.route('/user_plan_list/') # 사용자가 참여한 or 참여할 약속 페이지
-def user_plan_list():
+
+@bp.route('/my_study_plan_list/') # 사용자가 모집한 스터디 약속 페이지
+def my_study_plan_list():
     user_id = session.get('user_id')
     user = User.query.get_or_404(user_id)
-    user_plan_list = user.plan_set
-    return jsonify({"user_plan_list" : user_plan_list})
-"""
+    user_study_plan_list = user.study_plan_set
+    tempDict = []
+    for plan in user_study_plan_list:
+        data = {"id" : plan.id, 
+                "subject" : plan.subject}
+        data = json.dumps(data, ensure_ascii=False) # 딕셔너리 자료형을 json 문자열로 만듦
+        data = json.loads(data) # json 문자열을 딕셔너리로 역변환
+        tempDict.append(data)
+    return jsonify({"my_study_plan_list" : tempDict})
+
+
+@bp.route('/my_meal_plan_list/') # 사용자가 모집한 밥 약속 페이지
+def my_meal_plan_list():
+    user_id = session.get('user_id')
+    user = User.query.get_or_404(user_id)
+    user_meal_plan_list = user.meal_plan_set
+    tempDict = []
+    for plan in user_meal_plan_list:
+        data = {"id" : plan.id, 
+                "subject" : plan.subject}
+        data = json.dumps(data, ensure_ascii=False) # 딕셔너리 자료형을 json 문자열로 만듦
+        data = json.loads(data) # json 문자열을 딕셔너리로 역변환
+        tempDict.append(data)
+    return jsonify({"my_meal_plan_list" : tempDict})
+
+
+@bp.route('/my_exercise_plan_list/') # 사용자가 모집한 운동 약속 페이지
+def my_exercise_plan_list():
+    user_id = session.get('user_id')
+    user = User.query.get_or_404(user_id)
+    user_exercise_plan_list = user.exercise_plan_set
+    tempDict = []
+    for plan in user_exercise_plan_list:
+        data = {"id" : plan.id, 
+                "subject" : plan.subject}
+        data = json.dumps(data, ensure_ascii=False) # 딕셔너리 자료형을 json 문자열로 만듦
+        data = json.loads(data) # json 문자열을 딕셔너리로 역변환
+        tempDict.append(data)
+    return jsonify({"my_exercise_plan_list" : tempDict})
+
