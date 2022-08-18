@@ -56,6 +56,6 @@ BackEnd: python, flask, visual studio code
 ### 기술
 
 1. 회원가입, 로그인/로그아웃 기능
-2. 캘린더 기능
-3. 채팅 기능
+2. 게시판 기능
+3. 캘린더 기능
 4. 지도 기능
