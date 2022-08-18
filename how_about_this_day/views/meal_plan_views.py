@@ -26,7 +26,7 @@ def detail(plan_id):
     form = CommentForm()
     meal_plan = MealPlan.query.get_or_404(plan_id) # plan_id에 해당하는 약속을 plan에 저장
     comments = meal_plan.meal_plan_comment_set # plan_id에 해당하는 약속의 답변들을 comments에 저장
-    if request.methods == 'POST': # 댓글 작성 후 저장 요청
+    if request.method == 'POST': # 댓글 작성 후 저장 요청
         comment = MealPlanComment(meal_plan=meal_plan, content=form.content.data, create_date=datetime.now(), user=g.user)
         db.session.add(comment)
         db.session.commit()
@@ -53,7 +53,7 @@ def delete_comment(comment_id):
 @bp.route('/create/', methods=('GET', 'POST')) # 약속 작성
 def create_plan(): # 약속 작성 함수 -> 로그인이 필요한 기능
     form = PlanCreateForm() # 입력한 내용을 form으로 받음
-    if request.methods == 'POST': # POST 요청
+    if request.method == 'POST': # POST 요청
         ip = request.remote_addr # 사용자 ip 저장
         date = datetime.now() # 현재 시각 저장
         plan = MealPlan(subject=form.subject.data, content=form.content.data, create_date = datetime.now(), user=g.user) # 입력된 약속 내용 plan에 저장
@@ -67,7 +67,7 @@ def create_plan(): # 약속 작성 함수 -> 로그인이 필요한 기능
 @bp.route('/modify/<int:plan_id>', methods=('GET', 'POST')) # 약속 수정
 def modify(plan_id): # 약속 수정 함수 -> 로그인이 필요한 기능 + 글 작성자가 본인이어야 함
     plan = MealPlan.query.get_or_404(plan_id)
-    if request.methods == 'POST': # POST 요청 (수정 권한 있음)
+    if request.method == 'POST': # POST 요청 (수정 권한 있음)
         form = PlanCreateForm() # 사용자가 수정한 내용을 form 변수에 저장
         form.populate_obj(plan) # form 변수에 들어 있는 데이터(화면에서 입력한 데이터)를 plan 객체에 업데이트 하는 역할.
         plan.modify_date = datetime.now() # 수정일시 저장

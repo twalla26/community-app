@@ -7,7 +7,12 @@ from sqlalchemy import MetaData
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 
+
 import config
+
+
+
+# 한글 입력 오류 해결
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -27,7 +32,9 @@ migrate = Migrate()
 def create_app():
     app = Flask(__name__)
     app.config.from_object(config)
-    # alternative 02: app.secret_key= 'dev_alternative_01'
+    # 한글 인코딩
+    app.config['JSON_AS_ASCII'] = False
+
 
     # ORM
     db.init_app(app)
@@ -39,9 +46,11 @@ def create_app():
     from . import models
 
     # 블루프린트
-    from .views import main_views, auth_views
+    from .views import main_views, auth_views, study_plan_views, userInfo_views
     app.register_blueprint(main_views.bp)
     app.register_blueprint(auth_views.bp)
+    app.register_blueprint(study_plan_views.bp)
+    app.register_blueprint(userInfo_views.bp)
 
     # 필터
     from .filter import format_datetime

@@ -6,8 +6,8 @@ from werkzeug.utils import redirect
 from datetime import datetime
 
 from how_about_this_day import db
-from how_about_this_day.forms import AnswerForm, PlanCreateForm, UserCreateForm, UserLoginForm
-from how_about_this_day.models import Plan, User
+from how_about_this_day.forms import PlanCreateForm, UserCreateForm, UserLoginForm
+from how_about_this_day.models import StudyPlan, User
 import functools
 
 
@@ -21,11 +21,12 @@ def userInfo():
     email = user.email
     return jsonify({"username" : username, "email" : email})
 
+    
+""""
 @bp.route('/user_plan_list/') # 사용자가 참여한 or 참여할 약속 페이지
 def user_plan_list():
     user_id = session.get('user_id')
     user = User.query.get_or_404(user_id)
     user_plan_list = user.plan_set
     return jsonify({"user_plan_list" : user_plan_list})
-
-
+"""

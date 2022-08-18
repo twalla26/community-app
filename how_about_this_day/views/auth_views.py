@@ -1,5 +1,5 @@
 import json
-from flask import Blueprint, jsonify, url_for, render_template, flash, request, session, g
+from flask import Blueprint, jsonify, url_for, render_template, flash, request, session, g, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import redirect
 
@@ -9,6 +9,8 @@ from how_about_this_day import db
 from how_about_this_day.forms import UserCreateForm, UserLoginForm, CheckDupForm
 from how_about_this_day.models import User
 import functools
+
+
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -45,7 +47,7 @@ def check_dup(): # 아이디 중복 확인 함수
     
 
 
-'''----------------------------------------------------------session original---------------------------------------------------------'''
+"""----------------------------------------------------------session original---------------------------------------------------------"""
 
 
 # login - original
@@ -66,6 +68,7 @@ def login(): # 로그인 함수
     else: # 아이디, 비밀번호 둘다 제대로 입력했을 경우
         session.clear() # 세션을 초기화한 뒤,
         session['user_id'] = user.id # 세션에 현재 로그인한 유저의 아이디 저장
+        
         print(date)
         print("[로그]", "로그인에 성공했습니다. (IP:",str(ip)+")") # 로그 기록
         return jsonify({"login" : "success"}) # 클라에 로그인 성공했음을 알림
@@ -84,6 +87,8 @@ def load_logged_in_user(): # 사용자가 로그인한 상태인지 아닌지 �
 # checkSession - original
 @bp.route('/checkSession/')
 def checkSession():
+    print(request.url)
+    print(dict(request.headers))
     if g.user == None: # 로그아웃 상태
         return jsonify({"result" : "logout"}) # 클라에 로그인 요청
     else:
@@ -99,8 +104,8 @@ def logout(): # 로그아웃 함수
     session.clear()
     return jsonify({"logout" : "success"}) # 클라에 로그아웃 했음을 알려줌.
 
-'''----------------------------------------------------------session alternative 01---------------------------------------------------------
 
+"""
 
 # login - alternative 01
 @bp.route('/login/', methods=['POST'])
@@ -127,10 +132,11 @@ def login(): # 로그인 함수
 # checkSession - alternative 01
 @bp.route('/checkSession/')
 def checkSession():
-    if 'username' in session:
-        username = session['username']
+    print(session.get('username'))
+    if g.user != None:
         return jsonify({"login" : "True"})
-    return jsonify({"login" : "False"})
+    else:
+        return jsonify({"login" : "False"})
 
 
 # before app - alternavite 01
@@ -153,6 +159,61 @@ def logout(): # 로그아웃 함수
     session.pop('username', None)
     return jsonify({"logout" : "success"}) # 클라에 로그아웃 했음을 알려줌.
 
-'''
 
 
+
+
+"""
+"""
+# login - alternative 01
+@bp.route('/login/', methods=['POST'])
+def login(): # 로그인 함수
+    form = UserLoginForm() # 전달 받은 데이터를 from 변수에 저장
+    ip = request.remote_addr # 사용자 ip 저장
+    date = datetime.now() # 현재 시간 저장 -> 로그 기록용
+    user = User.query.filter_by(username=form.username.data).first() # 로그인하려는 사용자가 기존에 있는 사용자인지 확인
+    if not user: # 기존에 없는 사용자일 경우 -> 로그인 불가
+        print(date)
+        print("[로그]", "로그인 시도 중 아이디를 잘못 입력했습니다. (IP:",str(ip)+")") # 로그 기록
+        return jsonify({"login_error" : "user does not exists"}) # 클라에 로그인 오류로 존재하지 않는 사용자임을 알림
+    elif not check_password_hash(user.password, form.password.data): # 비밀번호가 틀렸을 경우 -> 로그인 불가
+        print(date)
+        print("[로그]", "로그인 시도 중 비밀번호를 잘못 입력했습니다. (IP:",str(ip)+")") # 로그 기록
+        return jsonify({"login_error" : "the password is incorrect"}) # 클라에 로그인 오류로 비밀번호가 틀렸음을 알림
+    else: # 아이디, 비밀번호 둘다 제대로 입력했을 경우
+        
+        print(date)
+        print("[로그]", "로그인에 성공했습니다. (IP:",str(ip)+")") # 로그 기록
+        return jsonify({"login" : "success"}) # 클라에 로그인 성공했음을 알림
+
+
+@bp.route('/checkSession/')
+def checkSession():
+    print(request.url)
+    print(dict(request.headers))
+    if g.user != None:
+        return jsonify({"login" : "True"})
+    else:
+        return jsonify({"login" : "False"})
+
+# before app - alternavite 01
+@bp.before_app_request # 모든 라우팅 함수가 실행되기 전에 실행되도록 함. -> 어떤 결과값을 반환하지 않고 로그인 유무 상태만 저장.
+def load_logged_in_user(): # 사용자가 로그인한 상태인지 아닌지 확인하는 함수
+    username = session.get('username') # 사용자가 로그인 했을 때 세션에 저장된 아이디값을 user_id에 저장
+    if username is None: # 만약 사용자가 로그인하지 않은 상태라면 user_id 값이 None값일 것.
+        g.user = None # g.user에 None 값을 저장해서 추후 g.user만으로도 로그인 유무를 확인할 수 있게 함.
+    else: # user_id가 None값이 아니라면 사용자는 로그인한 상태.
+        g.user = User.query.filter_by(username=username).first() # 세션에 저장된 아이디값을 이용하여 User 모델에서 사용자를 찾은 후 g.user에 사용자 정보 저장.
+
+
+# logout - alternative 01
+@bp.route('/logout/') # GET 요청
+def logout(): # 로그아웃 함수
+    ip = request.remote_addr # 사용자 ip 저장
+    date = datetime.now() # 현재 시각 저장
+    print(date)
+    print("[로그]", "로그아웃 했습니다. (IP:",str(ip)+")") # 로그 기록
+    session.pop('username', None)
+    return jsonify({"logout" : "success"}) # 클라에 로그아웃 했음을 알려줌.
+
+"""
