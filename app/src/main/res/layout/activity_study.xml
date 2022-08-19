@@ -104,7 +104,60 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/num1"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/num1"
+                        android:fontFamily="@font/font3"
+                        android:textSize="25dp">
+                    </androidx.appcompat.widget.AppCompatButton>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/num2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/num2"
+                        android:fontFamily="@font/font3"
+                        android:textSize="25dp">
+                    </androidx.appcompat.widget.AppCompatButton>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/num3"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/num3"
+                        android:fontFamily="@font/font3"
+                        android:textSize="25dp">
+                    </androidx.appcompat.widget.AppCompatButton>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/num4"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/num4"
+                        android:fontFamily="@font/font3"
+                        android:textSize="25dp">
+                    </androidx.appcompat.widget.AppCompatButton>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/num5"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/num5"
+                        android:fontFamily="@font/font3"
+                        android:textSize="25dp">
+                    </androidx.appcompat.widget.AppCompatButton>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
                     <ImageButton
                         android:id="@+id/btnAdd"
