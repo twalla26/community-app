@@ -44,6 +44,21 @@
                     android:layout_height="2dp"
                     android:background="#60E8AD">
                 </View>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/Edit_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="350dp"
+                        android:layout_marginTop="5dp"
+                        android:text="수정"
+                        android:background="@drawable/round_button2"
+                        android:fontFamily="@font/font3"
+                        android:textSize="16dp">
+                    </androidx.appcompat.widget.AppCompatButton>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

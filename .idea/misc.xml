@@ -46,7 +46,8 @@
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/activity_study.xml" value="0.2662689208984375" />
         <entry key="app/src/main/res/layout/activity_user2.xml" value="0.3182291666666667" />
-        <entry key="app/src/main/res/layout/activity_view_study.xml" value="0.22183098591549297" />
+        <entry key="app/src/main/res/layout/activity_view_study.xml" value="0.27698540486080553" />
+        <entry key="app/src/main/res/layout/activity_view_study_user.xml" value="0.3171875" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/login.xml" value="0.31249440511067705" />
         <entry key="app/src/main/res/xml/network_security_config.xml" value="0.3171875" />

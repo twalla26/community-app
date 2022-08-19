@@ -77,6 +77,7 @@ public class Study_activity extends AppCompatActivity {
 
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray study_plan_list = jsonObject.getJSONArray("study_plan_list");
+                    String user = jsonObject.getString("");
                     for(int i=0; i < study_plan_list.length(); i++){
                         idList.add(study_plan_list.getJSONObject(i).getString("id"));
                         titleList.add(study_plan_list.getJSONObject(i).getString("subject"));
@@ -93,10 +94,15 @@ public class Study_activity extends AppCompatActivity {
                                 public void onItemClick(AdapterView<?> adapterView,
                                                         View view, int position, long id){
                                     String ID = idList.get(position);
-                                    Intent intent = new Intent(Study_activity.this, ViewStudy.class);
-                                    intent.putExtra("id", ID);
-
-                                    startActivity(intent);
+                                    if (user.equals("True")){
+                                        Intent intent = new Intent(Study_activity.this, ViewStudy.class);
+                                        intent.putExtra("id", ID);
+                                        startActivity(intent);
+                                    } else {
+                                        Intent intent = new Intent(Study_activity.this, ViewStudy.class);
+                                        intent.putExtra("id", ID);
+                                        startActivity(intent);
+                                    }
                                 }
                             });
                         }
