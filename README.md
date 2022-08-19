@@ -1,18 +1,12 @@
-# 2022_TGThon 이날어때 앱
-
-<aside>
-📌 1학년 여름방학 동안 준비한 티지톤 대회 준비 여정(백엔드 부분)
-
-</aside>
+# 2022_TGThon 
 
 
 # 프로젝트명
 
-
 (여기어때를 잇는) 이날어때
 
-# 팀원 정보
 
+# 팀원 정보
 
 서윤주(경희대학교 컴퓨터공학과 22학번)
 
@@ -32,26 +26,25 @@
 
 ### FrontEnd
 
-서윤주 - 앱 레이아웃 구성
+    서윤주 - 앱 레이아웃 구성
 
-양진영 - 데이터 통신
+    양진영 - 데이터 통신
 
 ### BackEnd
 
-송수민 - 서버 개발
+    송수민 - 서버 개발
 
 ### 회의 계획
 
 매주 디스코드 및 카카오톡을 이용해 진행 상황을 공유하며 회의할 것이다.
 
-# 사용할 언어 툴 및 기술
+# 사용한 언어 툴 및 기술
 
+### 사용한 언어 툴
 
-### 사용할 언어 툴
+    FrontEnd: java, android studio
 
-FrontEnd: java, android studio
-
-BackEnd: python, flask, visual studio code
+    BackEnd: python, flask, visual studio code
 
 ### 기술
 
