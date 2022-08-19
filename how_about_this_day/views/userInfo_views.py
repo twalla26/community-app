@@ -59,3 +59,46 @@ def my_exercise_plan_list():
         tempDict.append(data)
     return jsonify({"my_exercise_plan_list" : tempDict})
 
+
+@bp.route('/my_comment_list/')
+def my_comment_list():
+    user_id = session.get('user_id')
+    user = User.query.get_or_404(user_id)
+    user_study_comment_list = user.study_plan_comment_set
+    user_exercise_comment_list = user.exercise_plan_comment_set
+    user_meal_comment_list = user.meal_plan_comment_set
+    userStudyCommentList = []
+    userExerciseCommentList = []
+    userMealCommentList = []
+    for comment in user_study_comment_list:
+        comment = { "user" : comment.user.username, 
+                    "content" : comment.content,
+                    "create_date" : comment.create_date.strftime('%Y년 %m월 %d일 %H:%M')}
+
+        comment = json.dumps(comment, ensure_ascii=False)
+        comment = json.loads(comment)
+        user_study_comment_list.append(comment) # 댓글 리스트 json 화
+
+    for comment in user_exercise_comment_list:
+        comment = { "user" : comment.user.username, 
+                    "content" : comment.content,
+                    "create_date" : comment.create_date.strftime('%Y년 %m월 %d일 %H:%M')}
+
+        comment = json.dumps(comment, ensure_ascii=False)
+        comment = json.loads(comment)
+        userExerciseCommentList.append(comment) # 댓글 리스트 json 화
+    
+    for comment in user_meal_comment_list:
+        comment = { "user" : comment.user.username, 
+                    "content" : comment.content,
+                    "create_date" : comment.create_date.strftime('%Y년 %m월 %d일 %H:%M')}
+
+        comment = json.dumps(comment, ensure_ascii=False)
+        comment = json.loads(comment)
+        userMealCommentList.append(comment) # 댓글 리스트 json 화
+
+    return jsonify({"user_study_plan_comment_set" : userStudyCommentList, 
+                    "user_exercise_plan_comment_set" : userExerciseCommentList,
+                    "user_meal_plan_comment_set" : userMealCommentList})
+    
+

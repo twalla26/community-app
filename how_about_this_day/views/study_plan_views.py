@@ -16,13 +16,18 @@ def _list():
     study_plan_list = study_plan_list.paginate(page, per_page=10) # 한 페이지 당 10개의 약속들이 나옴.
     tempDict = []
     for plan in study_plan_list.items:
+        if g.user == plan.user:
+            result = "True"
+        else:
+            result = "False"
         data = {"id" : plan.id, 
-                "subject" : plan.subject}
+                "subject" : plan.subject,
+                "username" : plan.user.username,
+                "plan_writer" : result}
         data = json.dumps(data, ensure_ascii=False) # 딕셔너리 자료형을 json 문자열로 만듦
         data = json.loads(data) # json 문자열을 딕셔너리로 역변환
         tempDict.append(data)
     return jsonify({"study_plan_list" : tempDict})
-
 
 
 @bp.route('/detail/<int:plan_id>/', methods=('GET', 'POST')) # 약속 상세
@@ -41,44 +46,71 @@ def detail(plan_id):
         commentList = [] # 글의 모든 댓글 리스트
         myComments = [] # 작성자가 작성한 댓글의 id 저장 리스트
         for comment in comments: # 페이지 내의 댓글 들 중 작성자가 작성한 댓글 탐색
-            comment = { "user" : comment.user.username, 
-                        "content" : comment.content,
-                        "create_date" : comment.create_date|datetime}
-            comment = json.dumps(comment, ensure_ascii=False)
-            comment = json.loads(comment)
-            commentList.append(comment)
 
             if g.user == comment.user: # 사용자와 댓글 작성자가 같다면,
-                myComments.append(comment.id)
+                myComments.append(comment.id) # 댓글 아이디 myComments 리스트에 추가
             myComments = json.dumps(myComments, ensure_ascii=False)
-            myComments = json.loads(myComments)
+            myComments = json.loads(myComments) # myComments 리스트 json화
+            
+            # 글에 달린 댓글들 리스트
+            comment = { "user" : comment.user.username, 
+                        "content" : comment.content,
+                        "create_date" : comment.create_date.strftime('%Y년 %m월 %d일 %H:%M')}
+
+            comment = json.dumps(comment, ensure_ascii=False)
+            comment = json.loads(comment)
+            commentList.append(comment) # 댓글 리스트 json 화
+
+        
 
         if g.user == study_plan.user: # 사용자가 작성한 글이라면 -> True
-            return jsonify({"id" : study_plan.id, 
+            if study_plan.modify_date:
+                return jsonify({"id" : study_plan.id, 
                             "subject" : study_plan.subject, 
                             "content" : study_plan.content,
-                            "create_date" : study_plan.create_date|datetime,
-                            "modify_date" : study_plan.modify_date|datetime,
+                            "create_date" : study_plan.create_date.strftime('%Y년 %m월 %d일 %H:%M'),
+                            "modify_date" : study_plan.modify_date.strftime('%Y년 %m월 %d일 %H:%M'),
+                            "plan_writer" : "True",
+                            "commentList" : commentList,
+                            "myComments" : myComments}) # GET요청: 클라에 약속 데이터와 답변 데이터 전송
+            else:
+                return jsonify({"id" : study_plan.id, 
+                            "subject" : study_plan.subject, 
+                            "content" : study_plan.content,
+                            "create_date" : study_plan.create_date.strftime('%Y년 %m월 %d일 %H:%M'),
                             "plan_writer" : "True",
                             "commentList" : commentList,
                             "myComments" : myComments}) # GET요청: 클라에 약속 데이터와 답변 데이터 전송
 
         else: # 사용자가 작성한 글이 아니면
-            return jsonify({"id" : study_plan.id, 
+            if study_plan.modify_date:
+                return jsonify({"id" : study_plan.id, 
                             "subject" : study_plan.subject, 
                             "content" : study_plan.content,
-                            "create_date" : study_plan.create_date|datetime,
-                            "modify_date" : study_plan.modify_date|datetime,
-                            "plan_writer" : "False", 
+                            "create_date" : study_plan.create_date.strftime('%Y년 %m월 %d일 %H:%M'),
+                            "modify_date" : study_plan.modify_date.strftime('%Y년 %m월 %d일 %H:%M'),
+                            "plan_writer" : "True",
                             "commentList" : commentList,
                             "myComments" : myComments}) # GET요청: 클라에 약속 데이터와 답변 데이터 전송
-
+            else:
+                return jsonify({"id" : study_plan.id, 
+                            "subject" : study_plan.subject, 
+                            "content" : study_plan.content,
+                            "create_date" : study_plan.create_date.strftime('%Y년 %m월 %d일 %H:%M'),
+                            "plan_writer" : "True",
+                            "commentList" : commentList,
+                            "myComments" : myComments}) # GET요청: 클라에 약속 데이터와 답변 데이터 전송
+        
 
 @bp.route('/coment_delete/<int:comment_id>/') # 댓글 삭제
 def delete_comment(comment_id):
     comment = StudyPlanComment.query.get_or_404(comment_id)
     db.session.delete(comment)
     db.session.commit()
+    ip = request.remote_addr
+    date = datetime.now()
+    print(date)
+    print("[로그]", "댓글을 삭제했습니다. (IP:",str(ip)+")") # 로그 기록
     return jsonify({"result" : "success"})
 
 
@@ -111,6 +143,7 @@ def modify(plan_id): # 약속 수정 함수 -> 로그인이 필요한 기능 + �
         return jsonify({"modify" : "success"}) # 클라가 약속 내용을 수정한 후 수정 완료된 글에 다시 들어갈 수 있도록 plan_id를 전달.
     else: # GET 요청
         return jsonify({"subject" : plan.subject, "content" : plan.content}) # 클라가 글을 수정할 수 있도록 기존에 썼던 글
+
 
 @bp.route('/delete/<int:plan_id>/') # 약속 삭제
 def delete(plan_id): # 약속 삭제 함수
