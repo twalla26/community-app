@@ -31,7 +31,8 @@
                     android:text="제목"
                     android:textSize="35dp" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/title_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_span="1"
@@ -59,7 +60,8 @@
                     android:text="내용"
                     android:textSize="35dp" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/content_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_span="1"

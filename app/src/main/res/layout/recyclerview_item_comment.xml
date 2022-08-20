@@ -30,6 +30,7 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/delete_comment"
             android:layout_marginTop="33dp"
             android:layout_width="40dp"
             android:layout_height="20dp"

@@ -35,7 +35,7 @@ import okhttp3.Response;
 
 public class User_activity extends AppCompatActivity {
     TextView username_text, email_text;
-    private Button logout;
+    private Button logout, myPlan;
     private static final String URL_userInfo = "http://39.124.122.32:5000/userInfo/";
     private static final String URL_Logout = "http://39.124.122.32:5000/auth/logout/";
 
@@ -48,6 +48,15 @@ public class User_activity extends AppCompatActivity {
         email_text = findViewById(R.id.login_email);
 
         send_request_Server_UserInfo();
+
+        myPlan = findViewById(R.id.btn_myPlan);
+        myPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(User_activity.this, myPlan_activity.class);
+                startActivity(intent);
+            }
+        });
 
         logout = findViewById(R.id.btn_logout);
         logout.setOnClickListener(new View.OnClickListener() {

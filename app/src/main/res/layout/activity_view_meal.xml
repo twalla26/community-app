@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ViewMeal">
+    tools:context=".Only_ViewMeal">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,69 +18,126 @@
             android:orientation="vertical">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/table_inside"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/font3"
-                android:gravity="center"
-                android:text="제목적는 부분"
-                android:textSize="45dp" />
+                android:background="@drawable/table_inside"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
+                    <TextView
+                        android:id="@+id/title_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/font3"
+                        android:gravity="center"
+                        android:text="제목적는 부분"
+                        android:textSize="45dp" />
 
-            <TextView
+                </LinearLayout>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:background="#60E8AD">
+                </View>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/user"
+                        android:layout_marginLeft="250dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text='writer'
+                        android:textSize="27dp"
+                        android:fontFamily="@font/font3"/>
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text='2022년 00월 00일 00:00'
+                        android:fontFamily="@font/font3"
+                        android:textSize="16dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/content_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="450dp"
+                        android:fontFamily="@font/font3"
+                        android:gravity="center"
+                        android:text="내용적는 부분"
+                        android:textSize="35dp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:background="#60E8AD">
+            </View>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/font3"
-                android:gravity="center"
-                android:text="내용적는 부분"
-                android:textSize="35dp" />
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:background="@drawable/table_inside">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_baseline_person_24"
+                    android:background="#B5B5B5"/>
+
+                <EditText
+                    android:id="@+id/comment_text"
+                    android:layout_width="289dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textSize="15dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/comment_send"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:text="작성"
+                    android:background="@drawable/round_button2"
+                    android:fontFamily="@font/font3"
+                    android:textSize="25dp">
+                </androidx.appcompat.widget.AppCompatButton>
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_comment"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_inside2"
+                android:fontFamily="@font/font3" />
 
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:background="@drawable/table_inside">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_baseline_person_24"
-            android:background="#B5B5B5"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical"
-            android:text="댓글기능 입니다"
-            android:textSize="15dp"/>
-
-    </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

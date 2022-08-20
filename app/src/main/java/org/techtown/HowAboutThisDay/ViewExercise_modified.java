@@ -1,9 +1,5 @@
 package org.techtown.HowAboutThisDay;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
@@ -36,12 +36,12 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class ViewExercise extends AppCompatActivity {
+public class ViewExercise_modified extends AppCompatActivity {
     private TextView title_view, content_view, user_View, date_View;
     private RecyclerView comment_list;
     private EditText comment;
     private Button comment_btn, edit_btn;
-    private String title, content, user, date, comment_Text;
+    private String title, content, user, modified_date, comment_Text;
     private String URL_Content_Exercise = "http://39.124.122.32:5000/exercise_plan/detail/";
     private static final String URL_send_Comment_Exercise = "http://39.124.122.32:5000/exercise_plan/detail/";
     private String URL_Comment_Delete = "http://39.124.122.32:5000/exercise_plan/comment_delete/";
@@ -57,8 +57,7 @@ public class ViewExercise extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_exercise_user);
-
+        setContentView(R.layout.activity_view_exercise_user_modified);
 
         // 레이아웃 뷰 연결
         title_view = findViewById(R.id.title_view);
@@ -92,7 +91,7 @@ public class ViewExercise extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                send_request_Server_Comment_exercise(URL_Content_Exercise_id, URL_send_Comment_Exercise_id);
+                send_request_Server_Comment_Exercise(URL_Content_Exercise_id, URL_send_Comment_Exercise_id);
             }
         });
 
@@ -101,7 +100,7 @@ public class ViewExercise extends AppCompatActivity {
         edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ViewExercise.this, EditExercise.class);
+                Intent intent = new Intent(ViewExercise_modified.this, EditExercise.class);
                 intent.putExtra("id", ID);
                 startActivity(intent);
             }
@@ -117,29 +116,34 @@ public class ViewExercise extends AppCompatActivity {
 
         class sendData extends AsyncTask<Void, Void, String> {
             @Override
-            protected void onPreExecute(){
+            protected void onPreExecute() {
                 super.onPreExecute();
             }
+
             @Override
-            protected void onPostExecute(String s){
+            protected void onPostExecute(String s) {
                 super.onPostExecute(s);
             }
+
             @Override
-            protected void onProgressUpdate(Void... values){
+            protected void onProgressUpdate(Void... values) {
                 super.onProgressUpdate(values);
             }
+
             @Override
-            protected void onCancelled(String s){
+            protected void onCancelled(String s) {
                 super.onCancelled(s);
             }
+
             @Override
-            protected void onCancelled(){
+            protected void onCancelled() {
                 super.onCancelled();
             }
+
             @Override
-            protected String doInBackground(Void... voids){
+            protected String doInBackground(Void... voids) {
                 try {
-                    CookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(ViewExercise.this));
+                    CookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(ViewExercise_modified.this));
                     String sessionid = getString("session");
                     List<Cookie> cookieList = cookieJar.loadForRequest(HttpUrl.parse(URL_Content_Exercise));
                     System.out.println(sessionid);
@@ -161,26 +165,26 @@ public class ViewExercise extends AppCompatActivity {
                     title = jsonObject.getString("subject");
                     content = jsonObject.getString("content");
                     user = jsonObject.getString("user");
-                    date = jsonObject.getString("create_date");
+                    modified_date = jsonObject.getString("modify_date");
                     JSONArray comment_list_exercise = jsonObject.getJSONArray("commentList");
-                    for(int i=0; i < comment_list_exercise.length(); i++){
+                    for (int i = 0; i < comment_list_exercise.length(); i++) {
                         comment_toList = comment_list_exercise.getJSONObject(i).getString("content");
                         user_toList = comment_list_exercise.getJSONObject(i).getString("user");
                         commentID_list.add(comment_list_exercise.getJSONObject(i).getString("id"));
                         commentlist.add(new commentList_item(comment_toList, user_toList));
                     }
                     System.out.println(comment_list);
-                    ViewExercise.this.runOnUiThread(new Runnable() {
+                    ViewExercise_modified.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             title_view.setText(title);
                             content_view.setText(content);
                             user_View.setText(user);
-                            date_View.setText(date);
+                            date_View.setText(modified_date);
 
 
                             comment_list.setAdapter(comment_listAdapter);
-                            comment_list.setLayoutManager(new LinearLayoutManager(ViewExercise.this));
+                            comment_list.setLayoutManager(new LinearLayoutManager(ViewExercise_modified.this));
                             comment_listAdapter.setCommentList(commentlist);
 
                             comment_listAdapter.setOnItemClickListener(new Comment_Adapter.OnItemClickListener() {
@@ -194,15 +198,16 @@ public class ViewExercise extends AppCompatActivity {
                         }
                     });
 
-                } catch (JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
-                } catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 return null;
             }
+
             public String getString(String key) {
-                SharedPreferences prefs = ViewExercise.this.getSharedPreferences("session", Context.MODE_PRIVATE);
+                SharedPreferences prefs = ViewExercise_modified.this.getSharedPreferences("session", Context.MODE_PRIVATE);
                 String value = prefs.getString(key, " ");
                 return value;
             }
@@ -210,40 +215,46 @@ public class ViewExercise extends AppCompatActivity {
         sendData sendData = new sendData();
         sendData.execute();
     }
-    public void send_request_Server_Comment_exercise(String URL_content, String URL_comment) {
-        String URL_Content_Exercise_id = URL_content;
-        String URL_send_Comment_Exercise_id = URL_comment;
+
+    public void send_request_Server_Comment_Exercise(String URL_content, String URL_comment) {
+        String URL_Content_Study_id = URL_content;
+        String URL_send_Comment_Study_id = URL_comment;
         EditText commentText = findViewById(R.id.comment_text);
 
         final String Comment = comment.getText().toString();
 
         class sendData extends AsyncTask<Void, Void, String> {
             @Override
-            protected void onPreExecute(){
+            protected void onPreExecute() {
                 super.onPreExecute();
             }
+
             @Override
-            protected void onPostExecute(String s){
+            protected void onPostExecute(String s) {
                 super.onPostExecute(s);
             }
+
             @Override
-            protected void onProgressUpdate(Void... values){
+            protected void onProgressUpdate(Void... values) {
                 super.onProgressUpdate(values);
             }
+
             @Override
-            protected void onCancelled(String s){
+            protected void onCancelled(String s) {
                 super.onCancelled(s);
             }
+
             @Override
-            protected void onCancelled(){
+            protected void onCancelled() {
                 super.onCancelled();
             }
+
             @Override
-            protected String doInBackground(Void... voids){
+            protected String doInBackground(Void... voids) {
                 try {
-                    CookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(ViewExercise.this));
+                    CookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(ViewExercise_modified.this));
                     String sessionid = getString("session");
-                    List<Cookie> cookieList = cookieJar.loadForRequest(HttpUrl.parse(URL_send_Comment_Exercise_id));
+                    List<Cookie> cookieList = cookieJar.loadForRequest(HttpUrl.parse(URL_send_Comment_Study_id));
                     System.out.println(sessionid);
                     System.out.println(cookieList);
                     OkHttpClient client = new OkHttpClient.Builder()
@@ -260,19 +271,18 @@ public class ViewExercise extends AppCompatActivity {
                     Request request = new Request.Builder()
                             .addHeader("Cookie", sessionid)
                             .post(requestBody)
-                            .url(URL_send_Comment_Exercise_id)
+                            .url(URL_send_Comment_Study_id)
                             .build();
                     Response responses = null;
                     responses = client.newCall(request).execute();
                     String response = responses.body().string();
                     System.out.println(response);
 
-                    if (response.contains("success")){
+                    if (response.contains("success")) {
                         commentText.setText(null);
-                        send_request_Server_Content_Exercise(URL_Content_Exercise_id);
-                    }
-                    else {
-                        ViewExercise.this.runOnUiThread(new Runnable() {
+                        send_request_Server_Content_Exercise(URL_Content_Study_id);
+                    } else {
+                        ViewExercise_modified.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 Toast.makeText(getApplicationContext(), "오류발생 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
@@ -281,15 +291,16 @@ public class ViewExercise extends AppCompatActivity {
                     }
 
 
-                } catch (JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
-                } catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 return null;
             }
+
             public String getString(String key) {
-                SharedPreferences prefs = ViewExercise.this.getSharedPreferences("session", Context.MODE_PRIVATE);
+                SharedPreferences prefs = ViewExercise_modified.this.getSharedPreferences("session", Context.MODE_PRIVATE);
                 String value = prefs.getString(key, " ");
                 return value;
             }
@@ -297,36 +308,42 @@ public class ViewExercise extends AppCompatActivity {
         sendData sendData = new sendData();
         sendData.execute();
     }
+
     public void send_request_Server_Comment_Delete(String URL_content, String URL_comment_delete) {
-        String URL_Content_Exercise_id = URL_content;
+        String URL_Content_Study_id = URL_content;
         String URL_send_Comment_Delete_id = URL_comment_delete;
 
 
         class sendData extends AsyncTask<Void, Void, String> {
             @Override
-            protected void onPreExecute(){
+            protected void onPreExecute() {
                 super.onPreExecute();
             }
+
             @Override
-            protected void onPostExecute(String s){
+            protected void onPostExecute(String s) {
                 super.onPostExecute(s);
             }
+
             @Override
-            protected void onProgressUpdate(Void... values){
+            protected void onProgressUpdate(Void... values) {
                 super.onProgressUpdate(values);
             }
+
             @Override
-            protected void onCancelled(String s){
+            protected void onCancelled(String s) {
                 super.onCancelled(s);
             }
+
             @Override
-            protected void onCancelled(){
+            protected void onCancelled() {
                 super.onCancelled();
             }
+
             @Override
-            protected String doInBackground(Void... voids){
+            protected String doInBackground(Void... voids) {
                 try {
-                    CookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(ViewExercise.this));
+                    CookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(ViewExercise_modified.this));
                     String sessionid = getString("session");
                     List<Cookie> cookieList = cookieJar.loadForRequest(HttpUrl.parse(URL_send_Comment_Delete_id));
                     System.out.println(sessionid);
@@ -345,11 +362,10 @@ public class ViewExercise extends AppCompatActivity {
                     String response = responses.body().string();
                     System.out.println(response);
 
-                    if (response.contains("success")){
-                        send_request_Server_Content_Exercise(URL_Content_Exercise_id);
-                    }
-                    else {
-                        ViewExercise.this.runOnUiThread(new Runnable() {
+                    if (response.contains("success")) {
+                        send_request_Server_Content_Exercise(URL_Content_Study_id);
+                    } else {
+                        ViewExercise_modified.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 Toast.makeText(getApplicationContext(), "오류발생 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
@@ -358,13 +374,14 @@ public class ViewExercise extends AppCompatActivity {
                     }
 
 
-                } catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 return null;
             }
+
             public String getString(String key) {
-                SharedPreferences prefs = ViewExercise.this.getSharedPreferences("session", Context.MODE_PRIVATE);
+                SharedPreferences prefs = ViewExercise_modified.this.getSharedPreferences("session", Context.MODE_PRIVATE);
                 String value = prefs.getString(key, " ");
                 return value;
             }

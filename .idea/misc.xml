@@ -41,16 +41,32 @@
         <entry key="app/src/main/res/drawable/table_inside2.xml" value="0.1705" />
         <entry key="app/src/main/res/layout/activity_add.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/activity_drawer.xml" value="0.2821557971014493" />
+        <entry key="app/src/main/res/layout/activity_edit_exercise.xml" value="0.15625" />
+        <entry key="app/src/main/res/layout/activity_edit_meal.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/activity_edit_study.xml" value="0.3182291666666667" />
+        <entry key="app/src/main/res/layout/activity_exercise.xml" value="0.23541666666666666" />
         <entry key="app/src/main/res/layout/activity_login1.xml" value="0.2821557971014493" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25625" />
+        <entry key="app/src/main/res/layout/activity_meal.xml" value="0.1546875" />
+        <entry key="app/src/main/res/layout/activity_myplan.xml" value="0.1296875" />
         <entry key="app/src/main/res/layout/activity_plus_exercise.xml" value="0.15885416666666666" />
+        <entry key="app/src/main/res/layout/activity_plus_meal.xml" value="0.17318572998046874" />
         <entry key="app/src/main/res/layout/activity_plus_study.xml" value="0.21200408935546877" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/activity_study.xml" value="0.2773803710937499" />
-        <entry key="app/src/main/res/layout/activity_user2.xml" value="0.3182291666666667" />
+        <entry key="app/src/main/res/layout/activity_user2.xml" value="0.19280242919921878" />
+        <entry key="app/src/main/res/layout/activity_view_exercise.xml" value="0.15625" />
+        <entry key="app/src/main/res/layout/activity_view_exercise_modified.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/activity_view_exercise_user.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/activity_view_exercise_user_modified.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/activity_view_meal.xml" value="0.15625" />
+        <entry key="app/src/main/res/layout/activity_view_meal_modified.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/activity_view_meal_user.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/activity_view_meal_user_modified.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/activity_view_study.xml" value="0.27698540486080553" />
-        <entry key="app/src/main/res/layout/activity_view_study_user.xml" value="0.3171875" />
+        <entry key="app/src/main/res/layout/activity_view_study_modified.xml" value="0.3546099290780142" />
+        <entry key="app/src/main/res/layout/activity_view_study_user.xml" value="0.2497528076171875" />
+        <entry key="app/src/main/res/layout/activity_view_study_user_modified.xml" value="0.1" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/loading_progressbar.xml" value="0.3171875" />
         <entry key="app/src/main/res/layout/login.xml" value="0.31249440511067705" />

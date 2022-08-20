@@ -39,6 +39,7 @@ public class PlusStudy extends AppCompatActivity {
     private static final String URL_Plus_Study = "http://39.124.122.32:5000/study_plan/create/";
     private EditText Title, Content;
     private Button Register;
+    String activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

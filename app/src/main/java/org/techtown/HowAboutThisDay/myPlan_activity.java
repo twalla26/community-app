@@ -1,16 +1,5 @@
 package org.techtown.HowAboutThisDay;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-//import javax.servlet.http.HttpSession;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,10 +7,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
@@ -32,7 +25,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,17 +35,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class Study_activity extends AppCompatActivity {
+public class myPlan_activity extends AppCompatActivity {
     int page=1;
     private NestedScrollView scrollView;
     private ProgressBar progressBar;
     private RecyclerView plan_list;
-    private final String URL_List_Study = "http://39.124.122.32:5000/study_plan/list/";
+    private final String URL_List_myPlan = "http://39.124.122.32:5000/userInfo/my_plan_list/";
 
     ArrayList<String> titleList = new ArrayList<>();
     ArrayList<String> idList = new ArrayList<>();
     ArrayList<String> userList = new ArrayList<>();
-    ArrayList<String> owntextList = new ArrayList<>();
     ArrayList<planList_item> planItems = new ArrayList<planList_item>();
     ArrayList<String> modifiedList = new ArrayList<>();
 
@@ -89,10 +80,10 @@ public class Study_activity extends AppCompatActivity {
             @Override
             protected String doInBackground(Void... voids){
                 try {
-                    String URL_page_List = URL_List_Study + String.format("?page=%d", page);
-                    CookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(Study_activity.this));
+                    String URL_page_List = URL_List_myPlan + String.format("?page=%d", page);
+                    CookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(myPlan_activity.this));
                     String sessionid = getString("session");
-                    List<Cookie> cookieList = cookieJar.loadForRequest(HttpUrl.parse(URL_List_Study));
+                    List<Cookie> cookieList = cookieJar.loadForRequest(HttpUrl.parse(URL_List_myPlan));
                     System.out.println(sessionid);
                     System.out.println(cookieList);
                     OkHttpClient client = new OkHttpClient.Builder()
@@ -110,54 +101,44 @@ public class Study_activity extends AppCompatActivity {
 
 
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONArray study_plan_list = jsonObject.getJSONArray("study_plan_list");
+                    JSONArray study_plan_list = jsonObject.getJSONArray("my_plan_list");
                     for(int i=0; i < study_plan_list.length(); i++){
                         titleList.add(study_plan_list.getJSONObject(i).getString("subject"));
                         userList.add(study_plan_list.getJSONObject(i).getString("username"));
                         idList.add(study_plan_list.getJSONObject(i).getString("id"));
-                        owntextList.add(study_plan_list.getJSONObject(i).getString("plan_writer"));
                         String title = study_plan_list.getJSONObject(i).getString("subject");
                         String user = study_plan_list.getJSONObject(i).getString("username");
                         String date = study_plan_list.getJSONObject(i).getString("create_date");
                         modifiedList.add(study_plan_list.getJSONObject(i).getString("modified"));
                         planItems.add(new planList_item(title, user, date));
                     }
-                    Study_activity.this.runOnUiThread(new Runnable() {
+                    myPlan_activity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
                             System.out.println(planItems);
                             plan_list.setAdapter(plan_listAdapter);
-                            plan_list.setLayoutManager(new LinearLayoutManager(Study_activity.this));
+                            plan_list.setLayoutManager(new LinearLayoutManager(myPlan_activity.this));
                             plan_listAdapter.setPlanList(planItems);
                             progressBar.setVisibility(View.GONE);
 
                             System.out.println(titleList);
                             System.out.println(userList);
-                            System.out.println(owntextList);
 
                             plan_listAdapter.setOnItemClickListener(new CustomAdapter.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(View view, int position) {
                                     String ID = idList.get(position);
-                                    if (owntextList.get(position).equals("True") & modifiedList.get(position).equals("True")){
-                                        Intent intent = new Intent(Study_activity.this, ViewStudy_modified.class);
+                                    if (modifiedList.get(position).equals("True")){
+                                        Intent intent = new Intent(myPlan_activity.this, ViewStudy_modified.class);
                                         intent.putExtra("id", ID);
                                         startActivity(intent);
-                                    } else if (owntextList.get(position).equals("True") & modifiedList.get(position).equals("False")){
-                                        Intent intent = new Intent(Study_activity.this, ViewStudy.class);
-                                        intent.putExtra("id", ID);
-                                        startActivity(intent);
-                                    } else if (owntextList.get(position).equals("False") & modifiedList.get(position).equals("True")){
-                                        Intent intent = new Intent(Study_activity.this, Only_ViewStudy_modified.class);
-                                        intent.putExtra("id", ID);
-                                        startActivity(intent);
-                                    } else if (owntextList.get(position).equals("False") & modifiedList.get(position).equals("False")){
-                                        Intent intent = new Intent(Study_activity.this, Only_ViewStudy.class);
+                                    } else if (modifiedList.get(position).equals("False")){
+                                        Intent intent = new Intent(myPlan_activity.this, ViewStudy.class);
                                         intent.putExtra("id", ID);
                                         startActivity(intent);
                                     } else {
-                                        Study_activity.this.runOnUiThread(new Runnable() {
+                                        myPlan_activity.this.runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
                                                 Toast.makeText(getApplicationContext(), "오류 발생 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
@@ -179,7 +160,7 @@ public class Study_activity extends AppCompatActivity {
                 return null;
             }
             public String getString(String key) {
-                SharedPreferences prefs = Study_activity.this.getSharedPreferences("session", Context.MODE_PRIVATE);
+                SharedPreferences prefs = myPlan_activity.this.getSharedPreferences("session", Context.MODE_PRIVATE);
                 String value = prefs.getString(key, " ");
                 return value;
             }
@@ -213,10 +194,10 @@ public class Study_activity extends AppCompatActivity {
             @Override
             protected String doInBackground(Void... voids){
                 try {
-                    String URL_page_List = URL_List_Study + String.format("?page=%d", page);
-                    CookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(Study_activity.this));
+                    String URL_page_List = URL_List_myPlan + String.format("?page=%d", page);
+                    CookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(myPlan_activity.this));
                     String sessionid = getString("session");
-                    List<Cookie> cookieList = cookieJar.loadForRequest(HttpUrl.parse(URL_List_Study));
+                    List<Cookie> cookieList = cookieJar.loadForRequest(HttpUrl.parse(URL_List_myPlan));
                     System.out.println(sessionid);
                     System.out.println(cookieList);
                     OkHttpClient client = new OkHttpClient.Builder()
@@ -239,19 +220,17 @@ public class Study_activity extends AppCompatActivity {
                         titleList.add(study_plan_list.getJSONObject(i).getString("subject"));
                         userList.add(study_plan_list.getJSONObject(i).getString("username"));
                         idList.add(study_plan_list.getJSONObject(i).getString("id"));
-                        owntextList.add(study_plan_list.getJSONObject(i).getString("plan_writer"));
                         String title = study_plan_list.getJSONObject(i).getString("subject");
                         String user = study_plan_list.getJSONObject(i).getString("username");
                         String date = study_plan_list.getJSONObject(i).getString("create_date");
-                        modifiedList.add(study_plan_list.getJSONObject(i).getString("modified"));
                         planItems.add(new planList_item(title, user, date));
                     }
-                    Study_activity.this.runOnUiThread(new Runnable() {
+                    myPlan_activity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
                             plan_list.setAdapter(plan_listAdapter);
-                            plan_list.setLayoutManager(new LinearLayoutManager(Study_activity.this));
+                            plan_list.setLayoutManager(new LinearLayoutManager(myPlan_activity.this));
                             plan_listAdapter.setPlanList(planItems);
                             progressBar.setVisibility(View.GONE);
 
@@ -260,16 +239,21 @@ public class Study_activity extends AppCompatActivity {
                                 @Override
                                 public void onItemClick(View view, int position) {
                                     String ID = idList.get(position);
-                                    String check = owntextList.get(position);
-                                    System.out.println(check);
-                                    if (owntextList.get(position).equals("True")){
-                                        Intent intent = new Intent(Study_activity.this, ViewStudy.class);
+                                    if (modifiedList.get(position).equals("True")){
+                                        Intent intent = new Intent(myPlan_activity.this, ViewStudy_modified.class);
+                                        intent.putExtra("id", ID);
+                                        startActivity(intent);
+                                    } else if (modifiedList.get(position).equals("False")){
+                                        Intent intent = new Intent(myPlan_activity.this, ViewStudy.class);
                                         intent.putExtra("id", ID);
                                         startActivity(intent);
                                     } else {
-                                        Intent intent = new Intent(Study_activity.this, Only_ViewStudy.class);
-                                        intent.putExtra("id", ID);
-                                        startActivity(intent);
+                                        myPlan_activity.this.runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(getApplicationContext(), "오류 발생 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                                     }
                                 }
                             });
@@ -286,7 +270,7 @@ public class Study_activity extends AppCompatActivity {
                 return null;
             }
             public String getString(String key) {
-                SharedPreferences prefs = Study_activity.this.getSharedPreferences("session", Context.MODE_PRIVATE);
+                SharedPreferences prefs = myPlan_activity.this.getSharedPreferences("session", Context.MODE_PRIVATE);
                 String value = prefs.getString(key, " ");
                 return value;
             }
@@ -298,7 +282,7 @@ public class Study_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_study);
+        setContentView(R.layout.activity_myplan);
 
         plan_list = findViewById(R.id.recyclerview);
         progressBar = findViewById(R.id.progressCircle);
@@ -317,17 +301,5 @@ public class Study_activity extends AppCompatActivity {
                 }
             }
         });
-
-        ImageButton btnAdd = (ImageButton) findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener((new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Study_activity.this, PlusStudy.class);
-                startActivity(intent); //액티비티 이동
-            }
-        }));
-
     }
-
 }

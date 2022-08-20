@@ -43,7 +43,7 @@ public class EditStudy extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_study);
+        setContentView(R.layout.activity_edit_exercise);
 
         title_view = findViewById(R.id.title_view);
         content_view = findViewById(R.id.content_view);
@@ -219,7 +219,7 @@ public class EditStudy extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "수정되었습니다.", Toast.LENGTH_SHORT).show();
                             }
                         });
-                        Intent intent = new Intent(EditStudy.this, ViewStudy.class);
+                        Intent intent = new Intent(EditStudy.this, ViewStudy_modified.class);
                         intent.putExtra("id", ID);
                         startActivity(intent);
                     } else {

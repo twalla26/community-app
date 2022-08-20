@@ -45,6 +45,29 @@
                     android:layout_height="2dp"
                     android:background="#60E8AD">
                 </View>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/user"
+                        android:layout_marginLeft="250dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text='writer'
+                        android:textSize="27dp"
+                        android:fontFamily="@font/font3"/>
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text='2022년 00월 00일 00:00'
+                        android:fontFamily="@font/font3"
+                        android:textSize="16dp"/>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -62,6 +85,7 @@
 
 
                 </LinearLayout>
+
             </LinearLayout>
             <View
                 android:layout_width="wrap_content"

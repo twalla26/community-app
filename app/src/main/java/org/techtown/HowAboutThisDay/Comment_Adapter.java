@@ -3,6 +3,7 @@ package org.techtown.HowAboutThisDay;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,15 @@ import java.util.ArrayList;
 
 public class Comment_Adapter extends RecyclerView.Adapter<Comment_Adapter.ViewHolder>{
     ArrayList<commentList_item> commentList = new ArrayList<commentList_item>();
+
+    public interface OnItemClickListener{
+        void onDeleteClick(View view, int position);
+    }
+    private OnItemClickListener Listener = null;
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.Listener = listener;
+    }
 
     @NonNull
     @Override
@@ -31,14 +41,31 @@ public class Comment_Adapter extends RecyclerView.Adapter<Comment_Adapter.ViewHo
     public int getItemCount(){
         return commentList.size();
     }
+
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView commentView, userView;
+        Button delete_comment = itemView.findViewById(R.id.delete_comment);
+
 
         public ViewHolder(View itemView){
             super(itemView);
 
+            delete_comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAbsoluteAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION){
+                        if (Listener != null){
+                            Listener.onDeleteClick(view, position);
+                        }
+                    }
+                }
+            });
+
             commentView = itemView.findViewById(R.id.commentView);
             userView = itemView.findViewById(R.id.userView);
+
         }
         void onBind(commentList_item item){
             commentView.setText(item.getComment());

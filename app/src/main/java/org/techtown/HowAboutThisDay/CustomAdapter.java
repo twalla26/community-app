@@ -58,7 +58,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int position = getAdapterPosition();
+                    int position = getAbsoluteAdapterPosition();
+                    System.out.println(position);
                     if (position != RecyclerView.NO_POSITION){
                         Listener.onItemClick(view, position);
                     }

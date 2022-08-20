@@ -79,9 +79,6 @@
                     android:layout_span="1"/>
             </TableRow>
 
-
-
-
         </TableLayout>
 
     </FrameLayout>
@@ -96,6 +93,17 @@
         android:background="@drawable/round_button2"
         android:fontFamily="@font/font3"
         android:text="로그아웃"
+        android:textSize="35dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_myPlan"
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:layout_gravity="center"
+
+        android:background="@drawable/round_button2"
+        android:fontFamily="@font/font3"
+        android:text="내가 쓴 글 보러가기"
         android:textSize="35dp" />
 
 </LinearLayout>

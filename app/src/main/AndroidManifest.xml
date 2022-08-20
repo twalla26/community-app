@@ -66,6 +66,24 @@
         <activity
             android:name=".LoginActivity1"
             android:exported="false" />
+        <activity android:name=".Only_ViewStudy_modified"
+            android:exported="false"/>
+        <activity android:name=".ViewStudy_modified"
+            android:exported="false"/>
+        <activity android:name=".myPlan_activity"
+            android:exported="false"/>
+        <activity android:name=".ViewExercise_modified"
+            android:exported="false"/>
+        <activity android:name=".Only_ViewExercise"
+            android:exported="false"/>
+        <activity android:name=".Only_ViewExercise_modified"
+            android:exported="false"/>
+        <activity android:name=".ViewMeal_modified"
+            android:exported="false"/>
+        <activity android:name=".Only_ViewMeal"
+            android:exported="false"/>
+        <activity android:name=".Only_ViewMeal_modified"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
