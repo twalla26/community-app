@@ -3,4 +3,11 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">39.124.122.32</domain>
     </domain-config>
+
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
 </network-security-config>

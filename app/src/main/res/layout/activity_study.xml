@@ -19,16 +19,11 @@
 
 
             <TableLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:stretchColumns="1">
 
                 <TableRow>
-
-                    <android.widget.SearchView
-                        android:layout_width="360dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/table_outside2"/>
 
                     <ImageButton
                         android:id="@+id/imageButton1"
@@ -38,6 +33,13 @@
                         android:background="#60E8AD"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_baseline_menu_24" />
+
+
+                    <android.widget.SearchView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/table_outside2"/>
+
 
 
                 </TableRow>
@@ -81,7 +83,7 @@
                                 android:textSize="30dp" />
 
                             <TextView
-                                android:layout_width="80dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/table_inside"
                                 android:fontFamily="@font/font3"
@@ -130,23 +132,24 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom|right">
 
                     <ImageButton
                         android:id="@+id/btnAdd"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:layout_marginStart="330dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="20dp"
                         android:adjustViewBounds="true"
                         android:background="#00000000"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_baseline_add_circle_24" />
 
-                </LinearLayout>
 
+                </LinearLayout>
             </FrameLayout>
+
+
 
 
         </LinearLayout>

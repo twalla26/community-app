@@ -7,8 +7,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -39,6 +44,8 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,6 +91,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getHashKey();
+    }
+
+    //함수 작성
+    private void getHashKey(){
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (packageInfo == null)
+            Log.e("HashKey", "HashKey:null");
+
+        for (Signature signature : packageInfo.signatures) {
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("HashKey", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            } catch (NoSuchAlgorithmException e) {
+                Log.e("HashKey", "HashKey Error. signature=" + signature, e);
+            }
+        }
 
         ImageButton imageButton2=(ImageButton)findViewById(R.id.imageButton2);
         imageButton2.setOnClickListener((new View.OnClickListener() {
@@ -269,6 +299,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
 
+        Button btn_move4 = (Button) findViewById(R.id.btn_move4);
+        btn_move4.setOnClickListener((new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Map1.class);
+                startActivity(intent); //액티비티 이동
+            }
+        }));
 
 
         dbHelper = new SQLiteHelper(MainActivity.this);

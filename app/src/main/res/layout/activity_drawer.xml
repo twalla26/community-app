@@ -60,6 +60,21 @@
         android:text="for exercise"/>
 
     <Button
+        android:id="@+id/btn_move4"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:textColor="#000000"
+        android:backgroundTint="#0076DDEA"
+        android:textSize="30dp"
+        android:fontFamily="@font/font3"
+        android:text="go to map"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+    <Button
         android:id="@+id/btn_close"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,7 +82,8 @@
         android:backgroundTint="#0076DDEA"
         android:textSize="30dp"
         android:fontFamily="@font/font3"
-        android:layout_marginTop="160dp"
+        android:layout_marginBottom="20dp"
         android:text="close"/>
+    </LinearLayout>
 
 </LinearLayout>
