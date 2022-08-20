@@ -48,9 +48,6 @@ def create_app():
     app.register_blueprint(meal_plan_views.bp)
     app.register_blueprint(exercise_plan_views.bp)
 
-    # 필터
-    from .filter import format_datetime
-    app.jinja_env.filters['datetime'] = format_datetime
 
     # 관리자 페이지 설정
     # bootswatch theme 설정. bootswatch: free theme for bootstrap
