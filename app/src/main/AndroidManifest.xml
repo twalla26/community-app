@@ -43,6 +43,8 @@
         <activity
             android:name=".ViewStudy"
             android:exported="false" />
+        <activity android:name=".Only_ViewStudy"
+            android:exported="false"/>
         <activity
             android:name=".PlusStudy"
             android:exported="false" />

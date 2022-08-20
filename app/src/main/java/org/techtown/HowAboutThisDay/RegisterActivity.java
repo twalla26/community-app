@@ -65,6 +65,12 @@ public class RegisterActivity extends AppCompatActivity {
                     dialog.show();
                     return;
                 }
+                if (!email.matches("^[A-z|0-9]([A-z|0-9]*)(@)([A-z]*)(\\.)([A-z]*)$")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    dialog = builder.setMessage("올바른 이메일을 입력해주세요.").setNegativeButton("확인", null).create();
+                    dialog.show();
+                    return;
+                }
 
                 if (!password.equals(passwordch)){
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);

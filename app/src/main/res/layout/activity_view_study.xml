@@ -7,9 +7,9 @@
     android:orientation="vertical"
     tools:context=".ViewStudy">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/table_inside"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -39,6 +39,7 @@
                         android:textSize="45dp" />
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="wrap_content"
                     android:layout_height="2dp"
@@ -88,7 +89,6 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="댓글"
                     android:textSize="15dp" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -102,14 +102,17 @@
                 </androidx.appcompat.widget.AppCompatButton>
 
             </LinearLayout>
-            <ListView
-                android:id="@+id/comment_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
 
-            </ListView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_comment"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_inside2"
+                android:fontFamily="@font/font3" />
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

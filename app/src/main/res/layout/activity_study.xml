@@ -7,7 +7,8 @@
     android:orientation="vertical"
     tools:context=".Study_activity">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -41,10 +42,6 @@
 
                 </TableRow>
             </TableLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="600dp">
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -56,9 +53,8 @@
                     android:orientation="vertical">
 
 
-
                     <TableLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/table_outside"
@@ -67,27 +63,31 @@
                         <TableRow>
 
                             <TextView
-                                android:layout_width="375dp"
+                                android:layout_width="250dp"
                                 android:layout_height="wrap_content"
-                                android:layout_span="1"
                                 android:background="@drawable/table_inside"
                                 android:fontFamily="@font/font3"
                                 android:gravity="center"
                                 android:text="제목"
                                 android:textSize="35dp" />
 
-                        </TableRow>
-
-                        <TableRow android:layout_height="match_parent">
-
-                            <ListView
-                                android:id="@+id/list"
+                            <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/table_inside2"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/table_inside"
                                 android:fontFamily="@font/font3"
-                                android:textSize="20dp" />
+                                android:gravity="center"
+                                android:text="작성자"
+                                android:textSize="30dp" />
 
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/table_inside"
+                                android:fontFamily="@font/font3"
+                                android:gravity="center"
+                                android:text="날짜"
+                                android:textSize="30dp" />
 
                         </TableRow>
 
@@ -95,64 +95,38 @@
 
 
                 </FrameLayout>
-            </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/table_inside2"
+                        android:fontFamily="@font/font3"
+                        android:textSize="20dp" />
+                </LinearLayout>
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical" android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/progressCircle"
+                    android:layout_marginVertical="20dp"
+                    android:layout_gravity="center"
+                    android:indeterminate="true" />
+            </LinearLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/num1"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/num1"
-                        android:fontFamily="@font/font3"
-                        android:textSize="25dp">
-                    </androidx.appcompat.widget.AppCompatButton>
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/num2"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/num2"
-                        android:fontFamily="@font/font3"
-                        android:textSize="25dp">
-                    </androidx.appcompat.widget.AppCompatButton>
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/num3"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/num3"
-                        android:fontFamily="@font/font3"
-                        android:textSize="25dp">
-                    </androidx.appcompat.widget.AppCompatButton>
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/num4"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/num4"
-                        android:fontFamily="@font/font3"
-                        android:textSize="25dp">
-                    </androidx.appcompat.widget.AppCompatButton>
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/num5"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/num5"
-                        android:fontFamily="@font/font3"
-                        android:textSize="25dp">
-                    </androidx.appcompat.widget.AppCompatButton>
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -177,6 +151,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>

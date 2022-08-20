@@ -6,14 +6,20 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
@@ -38,14 +44,17 @@ import okhttp3.Response;
 
 public class Only_ViewStudy extends AppCompatActivity {
     private TextView title_view, content_view;
-    private ListView comment_list;
+    private RecyclerView comment_list;
     private EditText comment;
     private Button comment_btn;
     private String title, content;
     private String URL_Content_Study = "http://39.124.122.32:5000/study_plan/detail/";
     private static final String URL_send_Comment_Study = "http://39.124.122.32:5000/study_plan/detail/";
 
-    ArrayList<String> commentlist = new ArrayList<>();
+    ArrayList<commentList_item> commentlist = new ArrayList<>();
+    Comment_Adapter comment_listAdapter = new Comment_Adapter();
+    String comment_toList = new String();
+    String user_toList = new String();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +63,7 @@ public class Only_ViewStudy extends AppCompatActivity {
 
         title_view = findViewById(R.id.title_view);
         content_view = findViewById(R.id.content_view);
-        comment_list = findViewById(R.id.comment_list);
+        comment_list = findViewById(R.id.recycler_comment);
         comment = findViewById(R.id.comment_text);
 
         Intent intent = getIntent();
@@ -62,6 +71,7 @@ public class Only_ViewStudy extends AppCompatActivity {
         System.out.println(ID);
 
         String URL_Content_Study_id = URL_Content_Study + String.format("%s/", ID);
+        String URL_send_Comment_Study_id = URL_send_Comment_Study + String.format("%s/", ID);
 
         send_request_Server_Content_Study(URL_Content_Study_id);
 
@@ -70,7 +80,7 @@ public class Only_ViewStudy extends AppCompatActivity {
         comment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                send_request_Server_Comment_study(URL_Content_Study_id);
+                send_request_Server_Comment_study(URL_Content_Study_id, URL_send_Comment_Study_id);
             }
         });
 
@@ -125,19 +135,23 @@ public class Only_ViewStudy extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     title = jsonObject.getString("subject");
                     content = jsonObject.getString("content");
-                    JSONArray comment_list_study = jsonObject.getJSONArray("myComments");
+                    JSONArray comment_list_study = jsonObject.getJSONArray("commentList");
                     for(int i=0; i < comment_list_study.length(); i++){
-                        commentlist.add(comment_list_study.getJSONObject(i).getString("comment"));
+                        comment_toList = comment_list_study.getJSONObject(i).getString("content");
+                        user_toList = comment_list_study.getJSONObject(i).getString("user");
+                        commentlist.add(new commentList_item(comment_toList, user_toList));
                     }
+                    System.out.println(comment_list);
                     Only_ViewStudy.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             title_view.setText(title);
                             content_view.setText(content);
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(Only_ViewStudy.this, android.R.layout.simple_list_item_1, commentlist);
+                            comment_list.setAdapter(comment_listAdapter);
+                            comment_list.setLayoutManager(new LinearLayoutManager(Only_ViewStudy.this));
+                            comment_listAdapter.setCommentList(commentlist);
 
-                            comment_list.setAdapter(adapter);
                         }
                     });
 
@@ -157,8 +171,10 @@ public class Only_ViewStudy extends AppCompatActivity {
         sendData sendData = new sendData();
         sendData.execute();
     }
-    public void send_request_Server_Comment_study(String URL) {
+    public void send_request_Server_Comment_study(String URL, String URL_comment) {
         String URL_Content_Study_id = URL;
+        String URL_send_Comment_Study_id = URL_comment;
+        EditText commentText = findViewById(R.id.comment_text);
 
         final String Comment = comment.getText().toString();
 
@@ -186,7 +202,15 @@ public class Only_ViewStudy extends AppCompatActivity {
             @Override
             protected String doInBackground(Void... voids){
                 try {
-                    OkHttpClient client = new OkHttpClient();
+                    CookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(Only_ViewStudy.this));
+                    String sessionid = getString("session");
+                    List<Cookie> cookieList = cookieJar.loadForRequest(HttpUrl.parse(URL_Content_Study));
+                    System.out.println(sessionid);
+                    System.out.println(cookieList);
+                    OkHttpClient client = new OkHttpClient.Builder()
+                            .cookieJar(cookieJar)
+                            .build();
+
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("content", Comment);
 
@@ -196,15 +220,17 @@ public class Only_ViewStudy extends AppCompatActivity {
                     );
 
                     Request request = new Request.Builder()
+                            .addHeader("Cookie", sessionid)
                             .post(requestBody)
-                            .url(URL_send_Comment_Study)
+                            .url(URL_send_Comment_Study_id)
                             .build();
                     Response responses = null;
                     responses = client.newCall(request).execute();
                     String response = responses.body().string();
                     System.out.println(response);
 
-                    if (response.contains("study_plan")){
+                    if (response.contains("success")){
+                        commentText.setText(null);
                         send_request_Server_Content_Study(URL_Content_Study_id);
                     }
                     else {
@@ -223,6 +249,11 @@ public class Only_ViewStudy extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 return null;
+            }
+            public String getString(String key) {
+                SharedPreferences prefs = Only_ViewStudy.this.getSharedPreferences("session", Context.MODE_PRIVATE);
+                String value = prefs.getString(key, " ");
+                return value;
             }
         }
         sendData sendData = new sendData();
