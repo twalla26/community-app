@@ -73,7 +73,9 @@ def my_comment_list():
     for comment in user_study_comment_list:
         comment = { "user" : comment.user.username, 
                     "content" : comment.content,
-                    "create_date" : comment.create_date.strftime('%Y년 %m월 %d일 %H:%M')}
+                    "create_date" : comment.create_date.strftime('%Y년 %m월 %d일 %H:%M'),
+                    "question_id" : comment.study_plan_id}
+                    
 
         comment = json.dumps(comment, ensure_ascii=False)
         comment = json.loads(comment)
@@ -82,7 +84,8 @@ def my_comment_list():
     for comment in user_exercise_comment_list:
         comment = { "user" : comment.user.username, 
                     "content" : comment.content,
-                    "create_date" : comment.create_date.strftime('%Y년 %m월 %d일 %H:%M')}
+                    "create_date" : comment.create_date.strftime('%Y년 %m월 %d일 %H:%M'),
+                    "question_id" : comment.exercise_plan_id}
 
         comment = json.dumps(comment, ensure_ascii=False)
         comment = json.loads(comment)
@@ -91,7 +94,8 @@ def my_comment_list():
     for comment in user_meal_comment_list:
         comment = { "user" : comment.user.username, 
                     "content" : comment.content,
-                    "create_date" : comment.create_date.strftime('%Y년 %m월 %d일 %H:%M')}
+                    "create_date" : comment.create_date.strftime('%Y년 %m월 %d일 %H:%M'),
+                    "question_id" : comment.meal_plan_id}
 
         comment = json.dumps(comment, ensure_ascii=False)
         comment = json.loads(comment)
