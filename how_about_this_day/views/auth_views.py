@@ -30,7 +30,6 @@ def signup(): # 회원가입 함수
             print(date)
             print("[로그]", "회원가입에 실패했습니다. (IP:",str(ip)+")") # 로그 기록
             return jsonify({"signup_error" : "user already exists"}) # 클라에 회원가입 오류와 오류 원인 알리기
-    return jsonify({"access" : "auth/signup"}) # GET 요청 -> 클라에 회원가입 창으로 가야함 알리기
 
 
 @bp.route('/signup/checkDup/', methods=['POST'])
