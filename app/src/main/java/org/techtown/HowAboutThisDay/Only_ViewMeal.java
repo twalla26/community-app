@@ -65,8 +65,6 @@ public class Only_ViewMeal extends AppCompatActivity {
         user_view = findViewById(R.id.user);
         date_view = findViewById(R.id.date);
 
-        comment_Text = comment.getText().toString();
-
         Intent intent = getIntent();
         String ID = intent.getExtras().getString("id");
         System.out.println(ID);
@@ -81,6 +79,7 @@ public class Only_ViewMeal extends AppCompatActivity {
         comment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                comment_Text = comment.getText().toString();
                 if (comment_Text.equals("")){
                     Toast.makeText(getApplicationContext(), "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;

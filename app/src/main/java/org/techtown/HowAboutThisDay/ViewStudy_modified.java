@@ -77,7 +77,6 @@ public class ViewStudy_modified extends AppCompatActivity {
 
         comment_list = findViewById(R.id.recycler_comment);
 
-        comment_Text = comment.getText().toString();
 
         // 이전 레이아웃에서 게시판 ID 받아오기
         Intent intent = getIntent();
@@ -96,6 +95,7 @@ public class ViewStudy_modified extends AppCompatActivity {
         comment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                comment_Text = comment.getText().toString();
                 if (comment_Text.equals("")){
                     Toast.makeText(getApplicationContext(), "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;

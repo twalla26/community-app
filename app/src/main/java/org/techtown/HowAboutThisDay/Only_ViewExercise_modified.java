@@ -69,7 +69,6 @@ public class Only_ViewExercise_modified extends AppCompatActivity {
         String ID = intent.getExtras().getString("id");
         System.out.println(ID);
 
-        comment_Text = comment.getText().toString();
 
         String URL_Content_Exercise_id = URL_Content_Exercise + String.format("%s/", ID);
         String URL_send_Comment_Exercise_id = URL_send_Comment_Exercise + String.format("%s/", ID);
@@ -81,6 +80,7 @@ public class Only_ViewExercise_modified extends AppCompatActivity {
         comment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                comment_Text = comment.getText().toString();
                 if (comment_Text.equals("")){
                     Toast.makeText(getApplicationContext(), "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;

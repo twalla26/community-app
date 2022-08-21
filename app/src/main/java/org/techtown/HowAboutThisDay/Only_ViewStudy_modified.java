@@ -65,7 +65,6 @@ public class Only_ViewStudy_modified extends AppCompatActivity {
         user_view = findViewById(R.id.user);
         date_view = findViewById(R.id.date);
 
-        comment_Text = comment.getText().toString();
 
         Intent intent = getIntent();
         String ID = intent.getExtras().getString("id");
@@ -82,6 +81,7 @@ public class Only_ViewStudy_modified extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (comment_Text.equals("")){
+                    comment_Text = comment.getText().toString();
                     Toast.makeText(getApplicationContext(), "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }

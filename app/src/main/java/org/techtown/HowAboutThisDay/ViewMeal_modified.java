@@ -74,7 +74,6 @@ public class ViewMeal_modified extends AppCompatActivity {
         String ID = intent.getExtras().getString("id");
         System.out.println(ID);
 
-        comment_Text = comment.getText().toString();
 
         // 아이디 적용한 URL
         String URL_Content_Meal_id = URL_Content_Meal + String.format("%s/", ID);
@@ -88,6 +87,7 @@ public class ViewMeal_modified extends AppCompatActivity {
         comment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                comment_Text = comment.getText().toString();
                 if (comment_Text.equals("")){
                     Toast.makeText(getApplicationContext(), "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
